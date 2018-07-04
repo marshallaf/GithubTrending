@@ -24,11 +24,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
-    implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
+    implementation deps.kotlin.stdlib
+    implementation deps.support
 
-    testImplementation "junit:junit:$versions.junit"
+    testImplementation deps.junit
 
-    androidTestImplementation "com.android.support.test:runner:$versions.testRunner"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.espresso"
+    androidTestImplementation deps.testRunner
+    androidTestImplementation deps.espresso
 }
