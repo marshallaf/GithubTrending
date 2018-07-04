@@ -3,7 +3,7 @@ ext.versions = [
     'androidMinSdk'    : 21,
     'androidTargetSdk' : 27,
     'androidCompileSdk': 27,
-    'kotlin'           : '1.2.50',
+    'kotlin'           : '1.2.51',
     'gradle'           : '3.1.3',
 
     // annotation
