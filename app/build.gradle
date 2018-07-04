@@ -5,30 +5,30 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion versions.androidCompileSdk
-    defaultConfig {
-        applicationId "com.marshallaf.githubtrending"
-        minSdkVersion versions.androidMinSdk
-        targetSdkVersion versions.androidTargetSdk
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  compileSdkVersion versions.androidCompileSdk
+  defaultConfig {
+    applicationId "com.marshallaf.githubtrending"
+    minSdkVersion versions.androidMinSdk
+    targetSdkVersion versions.androidTargetSdk
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+  }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation deps.kotlin.stdlib
-    implementation deps.support
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation deps.kotlin.stdlib
+  implementation deps.support
 
-    testImplementation deps.junit
+  testImplementation deps.junit
 
-    androidTestImplementation deps.testRunner
-    androidTestImplementation deps.espresso
+  androidTestImplementation deps.testRunner
+  androidTestImplementation deps.espresso
 }
