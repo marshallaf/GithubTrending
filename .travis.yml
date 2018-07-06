@@ -1,4 +1,5 @@
 language: android
+jdk: oraclejdk8
 
 branches:
   only:
@@ -6,6 +7,7 @@ branches:
 
 android:
   components:
+    - platform-tools
     - tools
     - build-tools-27.0.3
     - android-27
@@ -13,11 +15,10 @@ android:
     # emulators
     - sys-img-armeabi-v7a-android-27
 
-before_script:
-  - echo no | android create avd --force -n test -t android-27 --abi armeabi-v7a
-  - emulator -avd test -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+#before_script:
+#  - echo no | android create avd --force -n test -t android-27 --abi armeabi-v7a
+#  - emulator -avd test -no-audio -no-window &
+#  - android-wait-for-emulator
+#  - adb shell input keyevent 82 &
 
-script: ./gradlew testDebugUnitTest
-script: ./gradlew connectedDebugAndroidTest
+script: ./gradlew testDebugUnitTest connectedDebugAndroidTest
