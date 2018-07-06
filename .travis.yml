@@ -3,6 +3,7 @@ language: android
 android:
   components:
     - android-27
+    - android-26
 
     # emulators
     - sys-img-armeabi-v7a-android-26
