@@ -1,0 +1,60 @@
+# most of this from the following
+# https://github.com/kalaspuffar/secure-quick-reliable-login/blob/master/.travis.yml
+
+language: android
+jdk: oraclejdk8
+sudo: false
+
+branches:
+  only:
+    - "master"
+
+env:
+  global:
+    - ANDROID_API_LEVEL=27
+    - ANDROID_EMULATOR_LEVEL=25
+    - ANDROID_BUILD_TOOLS_VERSION=27.0.3
+    - ADB_INSTALL_TIMEOUT=8
+    - ANDROID_ABI=armeabi-v7a
+    - ANDROID_TAG=google_apis
+    - QEMU_AUDIO_DRV=none
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - tools
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    - android-$ANDROID_API_LEVEL
+    - android-$ANDROID_EMULATOR_LEVEL
+    - extra-android-support
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMULATOR_LEVEL
+
+licenses:
+  - android-sdk-preview-license-.+
+  - android-sdk-license-.+
+  - google-gdk-license-.+
+
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
+
+before_install:
+  - yes | sdkmanager "platforms;android-27"
+
+script:
+  - android list targets
+  - echo no | android create avd --force -n test -t "android-"$ANDROID_EMULATOR_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG
+  - emulator -avd test -no-window &
+  - ./gradlew clean
+  - ./gradlew assembleDebugAndroidTest -PdisablePreDex --continue --stacktrace
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 & # unlocks device
+  - ./gradlew connectedDebugAndroidTest -PdisablePreDex --continue --stacktrace
+
+#after_failure:
+#  - cat $TRAVIS_BUILD_DIR/app/build/reports/lint-results.xml
