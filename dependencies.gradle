@@ -21,48 +21,49 @@ ext.versions = [
     'testRunner'       : '1.0.2',
     'espresso'         : '3.0.2',
     'mockito'          : '2.19.0',
-    'mockito-kotlin'   : '2.0.0-RC1'
+    'mockitoKotlin'    : '2.0.0-RC1'
 ]
 
 ext.deps = [
     // android
-    'kotlin'        : [
+    'kotlin'       : [
         'stdlib': "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin",
         'plugin': "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin",
     ],
-    'gradle'        : "com.android.tools.build:gradle:$versions.gradle",
+    'gradle'       : "com.android.tools.build:gradle:$versions.gradle",
 
     // javax
-    'javax'         : [
+    'javax'        : [
         'annotation': "javax.annotation:javax.annotation-api:$versions.javaxAnnotation",
         'inject'    : "javax.inject:javax.inject:$versions.javaxInject"
     ],
 
     // rx
-    'rxjava'        : "io.reactivex.rxjava2:rxjava:$versions.rxjava",
+    'rxjava'       : "io.reactivex.rxjava2:rxjava:$versions.rxjava",
 
     // support
-    'support'       : "com.android.support:appcompat-v7:$versions.supportLibrary",
+    'support'      : "com.android.support:appcompat-v7:$versions.supportLibrary",
 
     // testing
-    'junit'         : "junit:junit:$versions.junit",
-    'testRunner'    : "com.android.support.test:runner:$versions.testRunner",
-    'espresso'      : "com.android.support.test.espresso:espresso-core:$versions.espresso",
-    'mockito'       : "org.mockito:mockito-core:$versions.mockito",
-    'mockito-kotlin': "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockito-kotlin"
+    'junit'        : "junit:junit:$versions.junit",
+    'testRunner'   : "com.android.support.test:runner:$versions.testRunner",
+    'espresso'     : "com.android.support.test.espresso:espresso-core:$versions.espresso",
+    'mockito'      : "org.mockito:mockito-core:$versions.mockito",
+    'mockitoKotlin': "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoKotlin"
 ]
 
 ext.moduleDeps = [
     'domain': [
         // application
-        'javax'  : [
+        'javax'        : [
             'annotation': deps.javax.annotation,
             'inject'    : deps.javax.inject
         ],
-        'rxJava' : deps.rxjava,
+        'rxJava'       : deps.rxjava,
 
         // testing
-        'junit'  : deps.junit,
-        'mockito': deps.mockito
+        'junit'        : deps.junit,
+        'mockito'      : deps.mockito,
+        'mockitoKotlin': deps.mockitoKotlin
     ]
 ]
