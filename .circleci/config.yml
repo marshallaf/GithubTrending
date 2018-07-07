@@ -42,9 +42,9 @@ references:
 
   # Gradle permission
   gradle_permission: &gradle_permission
-    - run:
-        name: Set permissions on gradlew
-        command: chmod +x ./gradlew
+    run:
+      name: Set permissions on gradlew
+      command: chmod +x ./gradlew
 
   # Android config
   android_config: &android_config
