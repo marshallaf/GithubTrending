@@ -40,6 +40,12 @@ references:
         - ~/.gradle
         - ~/.m2
 
+  # Gradle permission
+  gradle_permission: &gradle_permission
+    - run:
+        name: Set permissions on gradlew
+        command: chmod +x ./gradlew
+
   # Android config
   android_config: &android_config
     working_directory: *workspace
@@ -84,9 +90,7 @@ jobs:
     steps:
       - checkout
       - *restore_cache
-      - run:
-          name: Set permissions on gradlew
-          command: chmod +x ./gradlew
+      - *gradle_permission
       - run:
           name: Download dependencies
           command: ./gradlew androidDependencies
@@ -102,6 +106,7 @@ jobs:
     steps:
       - checkout
       - *restore_cache
+      - *gradle_permission
       - run:
           name: Download dependencies
           command: ./gradlew androidDependencies
@@ -148,6 +153,7 @@ jobs:
     steps:
       - checkout
       - *restore_cache
+      - *gradle_permission
       - run:
           name: Download dependencies
           command: ./gradlew androidDependencies
