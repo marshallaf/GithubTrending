@@ -173,11 +173,13 @@ workflows:
   workflow:
     jobs:
       - build_debug
-      - test_unit
-      - test_instrumented
+      - test_unit:
         requires:
           - build_debug
-      - report_coverage
+      - test_instrumented:
+        requires:
+          - build_debug
+      - report_coverage:
         requires:
           - test_unit
           - test_instrumented
