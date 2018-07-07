@@ -170,7 +170,7 @@ jobs:
 
 workflows:
   version: 2
-  workflow:
+  standard:
     jobs:
       - build_debug
       - test_unit:
