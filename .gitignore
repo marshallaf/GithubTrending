@@ -179,7 +179,7 @@ crashlytics-build.properties
 fabric.properties
 
 ### AndroidStudio Patch ###
-
+*.jar
 !/gradle/wrapper/gradle-wrapper.jar
 
 ### Espresso ###
@@ -196,7 +196,6 @@ fabric.properties
 # Mobile Tools for Java (J2ME)
 
 # Package Files #
-*.jar
 *.nar
 *.zip
 *.tar.gz
