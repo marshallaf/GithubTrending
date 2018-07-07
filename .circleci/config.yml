@@ -183,29 +183,13 @@ workflows:
   standard:
     jobs:
       - build_debug:
-          filters:
-            branches:
-              only:
-                - master
       - test_unit:
-          filters:
-            branches:
-              only:
-                - master
           requires:
             - build_debug
       - test_instrumented:
-          filters:
-            branches:
-              only:
-                - master
           requires:
             - build_debug
       - report_coverage:
-          filters:
-            branches:
-              only:
-                - master
           requires:
             - test_unit
             - test_instrumented
