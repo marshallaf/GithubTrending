@@ -79,16 +79,14 @@ references:
       command: echo $GOOGLE_CLOUD_KEY | base64 -di > ${HOME}/client-secret.json
 
 jobs:
-#  build:
-#    - build_debug
-#    - test_unit
-#    - test_instrumented
-#    - report_coverage
   build_debug:
     <<: *android_config
     steps:
       - checkout
       - *restore_cache
+      - run:
+          name: Set permissions on gradlew
+          command: chmod +x ./gradlew
       - run:
           name: Download dependencies
           command: ./gradlew androidDependencies
