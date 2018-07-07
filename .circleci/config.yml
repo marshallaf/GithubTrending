@@ -49,7 +49,7 @@ references:
     run:
       name: Export Google cloud key environment variable
       command: echo 'export GOOGLE_CLOUD_KEY="$GOOGLE_CLOUD_KEY"' >> $BASH_ENV
-  decode_gcloud_key:
+  decode_gcloud_key: &decode_gcloud_key
     run:
       name: Decode Google cloud key to JSON file
       command: echo $GOOGLE_CLOUD_KEY | base64 -di > ${HOME}/client-secret.json
