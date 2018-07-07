@@ -87,9 +87,6 @@ references:
 jobs:
   build_debug:
     <<: *android_config
-    branches:
-      only:
-        - master
     steps:
       - checkout
       - *restore_cache
@@ -106,9 +103,6 @@ jobs:
       - *persist_debug_workspace
   test_unit:
     <<: *android_config
-    branches:
-      only:
-        - master
     steps:
       - checkout
       - *restore_cache
@@ -131,9 +125,6 @@ jobs:
           destination: /test-results/
   test_instrumented:
     <<: *android_config
-    branches:
-      only:
-        - master
     steps:
       - *attach_debug_workspace
       - *export_gcloud_key
@@ -160,9 +151,6 @@ jobs:
           destination: /firebase/
   report_coverage:
     <<: *android_config
-    branches:
-      only:
-        - master
     steps:
       - checkout
       - *restore_cache
@@ -194,14 +182,30 @@ workflows:
   version: 2
   standard:
     jobs:
-      - build_debug
+      - build_debug:
+          filters:
+            branches:
+              only:
+                - master
       - test_unit:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - build_debug
       - test_instrumented:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - build_debug
       - report_coverage:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - test_unit
             - test_instrumented
