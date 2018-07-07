@@ -1,4 +1,6 @@
 
+.secret/
+
 # Created by https://www.gitignore.io/api/java,macos,kotlin,android,windows,espresso,androidstudio
 
 ### Android ###
