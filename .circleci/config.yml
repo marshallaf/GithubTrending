@@ -182,7 +182,7 @@ workflows:
   version: 2
   standard:
     jobs:
-      - build_debug:
+      - build_debug
       - test_unit:
           requires:
             - build_debug
