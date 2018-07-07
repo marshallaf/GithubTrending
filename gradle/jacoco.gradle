@@ -1,0 +1,75 @@
+apply plugin: 'jacoco'
+
+project.ext.jacocoEnabled = true
+def htmlEnabled = true
+
+def androidTaskDependenciesUnit = 'testDebugUnitTest'
+def androidTaskDependenciesInstrumented = 'createDebugCoverageReport'
+def javaTaskDependencies = 'test'
+
+def excludedClasses = [
+    '**/R.class',
+    '**/R$*.class',
+    '**/BuildConfig.*',
+    '**/Manifest*.*',
+    '**/*Test*.*',
+    'android/**/*.*',
+    '**/*_Impl.class',
+    '**/*_Impl$*.class',
+    '**/*_Factory.class',
+    '**/*_*Factory.class',
+    '**/Dagger*.class',
+    '**/*_MembersInjector.class',
+    '**/*_ViewBinding*.*'
+]
+def executionDataFiles = [
+    'jacoco/test.exec',
+    'jacoco/testDebugUnitTest.exec',
+    'outputs/code-coverage/connected/*coverage.ec'
+]
+
+def moduleSrcDir = 'src/main/java'
+
+def pureJavaClassDir = 'classes/java/main'
+def androidJavaClassDir = 'intermediates/classes/debug'
+def kotlinClassDir = 'tmp/kotlin-classes/debug'
+
+def pureJavaTree = fileTree(dir: "$project.buildDir/$pureJavaClassDir", excludes: excludedClasses)
+def androidJavaTree = fileTree(dir: "$project.buildDir/$androidJavaClassDir", excludes: excludedClasses)
+def kotlinTree = fileTree(dir: "$project.buildDir/$kotlinClassDir", excludes: excludedClasses)
+def debugTree = androidJavaTree + pureJavaTree + kotlinTree
+def mainSrc = "$project.projectDir/$moduleSrcDir"
+
+task javaModuleCoverageReport(type: JacocoReport, dependsOn: javaTaskDependencies) {
+  reports {
+    html.enabled htmlEnabled
+  }
+
+  sourceDirectories = files([mainSrc])
+  classDirectories = files([debugTree])
+  executionData = fileTree(dir: project.buildDir, includes: executionDataFiles)
+}
+
+task androidModuleUnitCoverageReport(type: JacocoReport, dependsOn: androidTaskDependenciesUnit) {
+  reports {
+    html.enabled htmlEnabled
+  }
+
+  sourceDirectories = files([mainSrc])
+  classDirectories = files([debugTree])
+  executionData = fileTree(dir: project.buildDir, includes: executionDataFiles)
+}
+
+task androidModuleInstrumentedCoverageReport(type: JacocoReport, dependsOn: androidTaskDependenciesInstrumented) {
+  reports {
+    html.enabled htmlEnabled
+  }
+
+  sourceDirectories = files([mainSrc])
+  classDirectories = files([debugTree])
+  executionData = fileTree(dir: project.buildDir, includes: executionDataFiles)
+}
+
+task jacocoCombinedDebugUnitCoverageReport(dependsOn: [javaModuleCoverageReport, androidModuleUnitCoverageReport])
+
+task jacocoCombinedDebugCoverageReport(dependsOn: [jacocoCombinedDebugUnitCoverageReport, androidModuleInstrumentedCoverageReport])
