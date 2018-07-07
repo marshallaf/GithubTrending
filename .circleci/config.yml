@@ -162,12 +162,12 @@ jobs:
       - *attach_firebase_workspace
       - run:
           name: Move Firebase coverage report
-          command: mkdir -p mobile/build/outputs/code-coverage/connected && cp firebase/nexus5x-26-en_US-portrait/artifacts/coverage.ec mobile/build/outputs/code-coverage/connected/coverage.ec
+          command: mkdir -p app/build/outputs/code-coverage/connected && cp firebase/nexus5x-26-en_US-portrait/artifacts/coverage.ec app/build/outputs/code-coverage/connected/coverage.ec
 #      - *export_gservices_key
 #      - *decode_gservices_key
-#      - run:
-#          name: Generate JaCoCo report
-#          command: ./gradlew -PciBuild=true :mobile:jacocoTestReport
+      - run:
+          name: Generate JaCoCo report
+          command: ./gradlew -PciBuild=true jacocoCombinedDebugUnitCoverageReport
 #      - run:
 #          name: Upload coverage report to Codacy
 #          command: ./gradlew -PciBuild=true uploadCoverageToCodacy
@@ -175,7 +175,7 @@ jobs:
 #          name: Upload coverage report to CodeCov
 #          command: bash <(curl -s https://codecov.io/bash)
       - store_artifacts:
-          path: mobile/build/reports/
+          path: app/build/reports/
           destination: /reports/
 
 workflows:

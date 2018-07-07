@@ -70,4 +70,6 @@ task androidModuleInstrumentedCoverageReport(type: JacocoReport, dependsOn: andr
   executionData = fileTree(dir: project.buildDir, includes: executionDataFiles)
 }
 
-task jacocoCombinedDebugCoverageReport(dependsOn: [javaModuleCoverageReport, androidModuleUnitCoverageReport, androidModuleInstrumentedCoverageReport])
+task jacocoCombinedDebugUnitCoverageReport(dependsOn: [javaModuleCoverageReport, androidModuleUnitCoverageReport])
+
+task jacocoCombinedDebugCoverageReport(dependsOn: [jacocoCombinedDebugUnitCoverageReport, androidModuleInstrumentedCoverageReport])
