@@ -144,7 +144,7 @@ jobs:
       - run:
           name: Download instrumented test results from Firebase Test Lab
           # gsutil multi-threaded copy recursive skip-unsupported bucket-url destination-dir
-          command: gsutil -m cp -r -U gs://test-lab-x32c7b32y56t2-ms1vs1q2x1vdc /root/workspace/firebase/
+          command: gsutil -m cp -r -U gs://test-lab-x32c7b32y56t2-ms1vs1q2x1vdc ~/workspace/firebase/
       - *persist_firebase_workspace
       - store_artifacts:
           path: firebase/
