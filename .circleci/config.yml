@@ -181,6 +181,12 @@ jobs:
 workflows:
   version: 2
   standard:
+    triggers:
+      - schedule:
+          filters:
+            branches:
+              only:
+                - master
     jobs:
       - build_debug
       - test_unit:
