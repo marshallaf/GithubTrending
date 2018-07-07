@@ -85,14 +85,14 @@ jobs:
       - checkout
       - *restore_cache
       - run:
-        name: Download dependencies
-        command: ./gradlew androidDependencies
+          name: Download dependencies
+          command: ./gradlew androidDependencies
       - *save_cache
 #      - *export_gservices_key
 #      - *decode_gservices_key
       - run:
-        name: Gradle build debug
-        command: ./gradlew -PciBuild=true assembleDebug assembleAndroidTest
+          name: Gradle build debug
+          command: ./gradlew -PciBuild=true assembleDebug assembleAndroidTest
       - *persist_debug_workspace
   test_unit:
     <<: *android_config
@@ -100,21 +100,21 @@ jobs:
       - checkout
       - *restore_cache
       - run:
-        name: Download dependencies
-        command: ./gradlew androidDependencies
+          name: Download dependencies
+          command: ./gradlew androidDependencies
       - *save_cache
 #      - *export_gservices_key
 #      - *decode_gservices_key
       - run:
-        name: Run unit tests
-        command: ./gradlew -PciBuild=true testDebugUnitTest
+          name: Run unit tests
+          command: ./gradlew -PciBuild=true testDebugUnitTest
       - *persist_debug_workspace
       - store_artifacts:
-        path: app/build/reports
-        destination: /reports/
+          path: app/build/reports
+          destination: /reports/
       - store_test_results:
-        path: app/build/test-results/
-        destination: /test-results/
+          path: app/build/test-results/
+          destination: /test-results/
   test_instrumented:
     <<: *android_config
     steps:
@@ -122,24 +122,24 @@ jobs:
       - *export_gcloud_key
       - *decode_gcloud_key
       - run:
-        name: Set Google Cloud target project
-        command: gcloud config set project githubtrending-8c9a8
+          name: Set Google Cloud target project
+          command: gcloud config set project githubtrending-8c9a8
       - run:
-        name: Authenticate with Google Cloud
-        command: gcloud auth activate-service-account firebase-adminsdk-607ak@githubtrending-8c9a8.iam.gserviceaccount.com --key-file ${HOME}/client-secret.json
+          name: Authenticate with Google Cloud
+          command: gcloud auth activate-service-account firebase-adminsdk-607ak@githubtrending-8c9a8.iam.gserviceaccount.com --key-file ${HOME}/client-secret.json
       - run:
-        name: Run instrumented tests on Firebase Test Lab
-        command: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus5X,version=26,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec --directories-to-pull=/sdcard/tmp --timeout 20m
+          name: Run instrumented tests on Firebase Test Lab
+          command: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus5X,version=26,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec --directories-to-pull=/sdcard/tmp --timeout 20m
       - run:
-        name: Create directory to store test results
-        command: mkdir firebase
+          name: Create directory to store test results
+          command: mkdir firebase
       - run:
-        name: Download instrumented test results from Firebase Test Lab
-        command: gsutil -m cp -r -U "`gsutil ls gs://test-lab-x32c7b32y56t2-ms1vs1q2x1vdc | tail -1`*" /root/workspace/firebase
+          name: Download instrumented test results from Firebase Test Lab
+          command: gsutil -m cp -r -U "`gsutil ls gs://test-lab-x32c7b32y56t2-ms1vs1q2x1vdc | tail -1`*" /root/workspace/firebase
       - *persist_firebase_workspace
       - store_artifacts:
-        path: firebase/
-        destination: /firebase/
+          path: firebase/
+          destination: /firebase/
   report_coverage:
     <<: *android_config
     steps:
