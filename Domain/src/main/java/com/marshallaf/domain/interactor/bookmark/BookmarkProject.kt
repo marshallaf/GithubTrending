@@ -19,7 +19,7 @@ class BookmarkProject @Inject constructor(
     }
   }
 
-  override fun buildUseCaseCompletable(params: Params?): Completable {
+  public override fun buildUseCaseCompletable(params: Params?): Completable {
     if (params == null) throw IllegalArgumentException("params cannot be null")
     return projectsRepository.bookmarkProject(params.projectId)
   }

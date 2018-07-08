@@ -61,14 +61,15 @@ ext.deps = [
 ext.moduleDeps = [
     'domain': [
         // application
-        'javax'  : [
+        'javax'        : [
             'annotation': deps.javax.annotation,
             'inject'    : deps.javax.inject
         ],
-        'rxJava' : deps.rxjava,
+        'rxJava'       : deps.rxjava,
 
         // testing
-        'junit'  : deps.junit,
-        'mockito': deps.mockito
+        'junit'        : deps.junit,
+        'mockito'      : deps.mockito,
+        'mockitoKotlin': deps.mockitoKotlin
     ]
 ]
