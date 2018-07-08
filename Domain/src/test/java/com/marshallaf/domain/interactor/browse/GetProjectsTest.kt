@@ -24,20 +24,15 @@ class GetProjectsTest {
   }
 
   @Test fun getProjects_completes() {
-    stubGetProjects(Observable.just(ProjectDataFactory.makeProjectList(2)))
-    val testObserver = getProjects.buildUseCaseObservable().test()
-    testObserver.assertComplete()
+    whenever(projectsRepository.getProjects()).thenReturn(Observable.just(ProjectDataFactory.makeProjectList(2)))
+    getProjects.buildUseCaseObservable().test()
+        .assertComplete()
   }
 
-  @Test fun getProjects_returnsExpectedData() {
-    val projects = ProjectDataFactory.makeProjectList(2)
-    stubGetProjects(Observable.just(projects))
-    val testObserver = getProjects.buildUseCaseObservable().test()
-    testObserver.assertValue(projects)
-  }
-
-  private fun stubGetProjects(observable: Observable<List<Project>>) {
-    whenever(projectsRepository.getProjects())
-        .thenReturn(observable)
+  @Test fun getProjects_returnsFromRepository() {
+    val projectList = ProjectDataFactory.makeProjectList(2)
+    whenever(projectsRepository.getProjects()).thenReturn(Observable.just(projectList))
+    getProjects.buildUseCaseObservable().test()
+        .assertValue(projectList)
   }
 }

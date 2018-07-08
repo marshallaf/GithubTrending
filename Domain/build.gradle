@@ -27,9 +27,7 @@ buildscript {
     classpath deps.kotlin.plugin
   }
 }
-repositories {
-  mavenCentral()
-}
+
 compileKotlin {
   kotlinOptions {
     jvmTarget = "1.8"
