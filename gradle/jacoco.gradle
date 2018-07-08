@@ -2,6 +2,7 @@ apply plugin: 'jacoco'
 
 project.ext.jacocoEnabled = true
 def htmlEnabled = true
+def xmlEnabled = true
 
 def androidTaskDependenciesUnit = 'testDebugUnitTest'
 def androidTaskDependenciesInstrumented = 'createDebugCoverageReport'
@@ -43,6 +44,7 @@ def mainSrc = "$project.projectDir/$moduleSrcDir"
 task javaModuleCoverageReport(type: JacocoReport, dependsOn: javaTaskDependencies) {
   reports {
     html.enabled htmlEnabled
+    xml.enabled xmlEnabled
   }
 
   sourceDirectories = files([mainSrc])
@@ -53,6 +55,7 @@ task javaModuleCoverageReport(type: JacocoReport, dependsOn: javaTaskDependencie
 task androidModuleUnitCoverageReport(type: JacocoReport, dependsOn: androidTaskDependenciesUnit) {
   reports {
     html.enabled htmlEnabled
+    xml.enabled xmlEnabled
   }
 
   sourceDirectories = files([mainSrc])
@@ -63,6 +66,7 @@ task androidModuleUnitCoverageReport(type: JacocoReport, dependsOn: androidTaskD
 task androidModuleInstrumentedCoverageReport(type: JacocoReport, dependsOn: androidTaskDependenciesInstrumented) {
   reports {
     html.enabled htmlEnabled
+    xml.enabled xmlEnabled
   }
 
   sourceDirectories = files([mainSrc])

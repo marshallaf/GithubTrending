@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply from: rootProject.file("gradle/jacoco.gradle")
+apply from: rootProject.file("gradle/codacy.gradle")
 
 android {
   compileSdkVersion versions.androidCompileSdk

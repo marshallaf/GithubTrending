@@ -22,7 +22,10 @@ ext.versions = [
     'espresso'         : '3.0.2',
     'mockito'          : '2.19.0',
     'mockitoKotlin'    : '2.0.0-RC1',
-    'jacoco'           : '0.8.1'
+    'jacoco'           : '0.8.1',
+
+    // codacy
+    'codacy': '4.0.1'
 ]
 
 ext.deps = [
@@ -55,7 +58,10 @@ ext.deps = [
         'core'   : "org.jacoco:org.jacoco.core:$versions.jacoco",
         'agent'  : "org.jacoco:org.jacoco.agent:$versions.jacoco",
         'report' : "org.jacoco:org.jacoco.report:$versions.jacoco"
-    ]
+    ],
+
+    // codacy
+    'codacy': "com.github.codacy:codacy-coverage-reporter:$versions.codacy"
 ]
 
 ext.moduleDeps = [
