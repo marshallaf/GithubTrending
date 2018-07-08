@@ -13,9 +13,9 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import java.lang.IllegalArgumentException
 
-class BookmarkProjectTest {
+class UnbookmarkProjectTest {
 
-  lateinit var bookmarkProject: BookmarkProject
+  lateinit var unbookmarkProject: UnbookmarkProject
 
   @Mock lateinit var projectsRepository: ProjectsRepository
   @Mock lateinit var postExecutionThread: PostExecutionThread
@@ -23,20 +23,20 @@ class BookmarkProjectTest {
   @Before fun setUp() {
     MockitoAnnotations.initMocks(this)
 
-    bookmarkProject = BookmarkProject(projectsRepository, postExecutionThread)
+    unbookmarkProject = UnbookmarkProject(projectsRepository, postExecutionThread)
   }
 
-  @Test fun bookmarkProject_completes() {
+  @Test fun unbookmarkProject_completes() {
     val projectId = ProjectDataFactory.randomUuid()
-    whenever(projectsRepository.bookmarkProject(any())).thenReturn(Completable.complete())
-    bookmarkProject.buildUseCaseCompletable(BookmarkProject.Params.forProject(projectId))
+    whenever(projectsRepository.unbookmarkProject(any())).thenReturn(Completable.complete())
+    unbookmarkProject.buildUseCaseCompletable(UnbookmarkProject.Params.forProject(projectId))
         .test()
         .assertComplete()
-    verify(projectsRepository).bookmarkProject(projectId)
+    verify(projectsRepository).unbookmarkProject(projectId)
   }
 
   @Test(expected = IllegalArgumentException::class)
-  fun bookmarkProject_nullParams_throwsException() {
-    bookmarkProject.buildUseCaseCompletable(null).test()
+  fun unbookmarkProject_nullParams_throwsException() {
+    unbookmarkProject.buildUseCaseCompletable(null).test()
   }
 }
