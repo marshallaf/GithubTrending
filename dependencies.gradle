@@ -21,7 +21,8 @@ ext.versions = [
     'testRunner'       : '1.0.2',
     'espresso'         : '3.0.2',
     'mockito'          : '2.19.0',
-    'mockitoKotlin'    : '2.0.0-RC1'
+    'mockitoKotlin'    : '2.0.0-RC1',
+    'jacoco'           : '0.8.1'
 ]
 
 ext.deps = [
@@ -49,7 +50,12 @@ ext.deps = [
     'testRunner'   : "com.android.support.test:runner:$versions.testRunner",
     'espresso'     : "com.android.support.test.espresso:espresso-core:$versions.espresso",
     'mockito'      : "org.mockito:mockito-core:$versions.mockito",
-    'mockitoKotlin': "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoKotlin"
+    'mockitoKotlin': "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoKotlin",
+    'jacoco': [
+        'core'   : "org.jacoco:org.jacoco.core:$versions.jacoco",
+        'agent'  : "org.jacoco:org.jacoco.agent:$versions.jacoco",
+        'report' : "org.jacoco:org.jacoco.report:$versions.jacoco"
+    ]
 ]
 
 ext.moduleDeps = [
