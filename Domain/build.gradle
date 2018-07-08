@@ -1,11 +1,9 @@
-apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
 dependencies {
-  implementation deps.kotlin.stdlib
-
   def domainDependencies = rootProject.ext.moduleDeps.domain
 
+  implementation domainDependencies.kotlin
   implementation domainDependencies.javax.annotation
   implementation domainDependencies.javax.inject
   implementation domainDependencies.rxJava
