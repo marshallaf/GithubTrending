@@ -428,7 +428,7 @@ style:
   NestedClassesVisibility:
     active: false
   NewLineAtEndOfFile:
-    active: true
+    active: false # seems to be flaky, on Codacy at least
   NoTabs:
     active: false
   OptionalAbstractKeyword:
