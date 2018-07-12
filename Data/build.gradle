@@ -1,0 +1,19 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    def dataDependencies = rootProject.ext.moduleDeps.data
+
+    implementation project(':Domain')
+
+    implementation dataDependencies.kotlin
+    implementation dataDependencies.javax.annotation
+    implementation dataDependencies.javax.inject
+    implementation dataDependencies.rxKotlin
+
+    testImplementation dataDependencies.kotlinJunit
+    testImplementation dataDependencies.mockito
+    testImplementation dataDependencies.mockitoKotlin
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
