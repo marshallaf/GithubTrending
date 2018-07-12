@@ -10,7 +10,6 @@ dependencies {
     implementation dataDependencies.javax.inject
     implementation dataDependencies.rxKotlin
 
-    testImplementation dataDependencies.junit
     testImplementation dataDependencies.kotlinJunit
     testImplementation dataDependencies.mockito
     testImplementation dataDependencies.mockitoKotlin
