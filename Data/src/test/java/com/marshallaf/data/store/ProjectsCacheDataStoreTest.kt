@@ -54,7 +54,7 @@ class ProjectsCacheDataStoreTest {
       whenever(this.setLastCacheTime(any())).thenReturn(completable)
     }
 
-    projectsCacheDataStore.saveProjects(emptyList()).test().run {
+    projectsCacheDataStore.saveProjects(emptyList()).test().apply {
       assertNotComplete()
       completable.onComplete()
       assertComplete()
@@ -65,7 +65,7 @@ class ProjectsCacheDataStoreTest {
     val completable = CompletableSubject.create()
     whenever(projectsCache.clearProjects()).thenReturn(completable)
 
-    projectsCacheDataStore.clearProjects().test().run {
+    projectsCacheDataStore.clearProjects().test().apply {
       assertNotComplete()
       completable.onComplete()
       assertComplete()
@@ -91,7 +91,7 @@ class ProjectsCacheDataStoreTest {
     val completable = CompletableSubject.create()
     whenever(projectsCache.setProjectBookmarked(any())).thenReturn(completable)
 
-    projectsCacheDataStore.setProjectBookmarked("").test().run {
+    projectsCacheDataStore.setProjectBookmarked("").test().apply {
       assertNotComplete()
       completable.onComplete()
       assertComplete()
@@ -108,7 +108,7 @@ class ProjectsCacheDataStoreTest {
     val completable = CompletableSubject.create()
     whenever(projectsCache.setProjectUnbookmarked(any())).thenReturn(completable)
 
-    projectsCacheDataStore.setProjectUnbookmarked("").test().run {
+    projectsCacheDataStore.setProjectUnbookmarked("").test().apply {
       assertNotComplete()
       completable.onComplete()
       assertComplete()
