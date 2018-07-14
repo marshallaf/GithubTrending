@@ -26,7 +26,7 @@ ext.versions = [
     'espresso'         : '3.0.2',
     'mockito'          : '2.19.0',
     'mockitoKotlin'    : '2.0.0-RC1',
-    'jacoco'           : '0.8.1',
+    'jacoco'           : '0.8.2-SNAPSHOT',
     'robolectric'      : '3.8',
 
     // codacy

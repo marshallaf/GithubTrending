@@ -4,9 +4,9 @@ project.ext.jacocoEnabled = true
 def htmlEnabled = true
 def xmlEnabled = true
 
-def androidTaskDependenciesUnit = 'testDebugUnitTest'
-def androidTaskDependenciesInstrumented = 'createDebugCoverageReport'
-def javaTaskDependencies = 'test'
+def androidTaskDependenciesUnit = ':app:testDebugUnitTest'
+def androidTaskDependenciesInstrumented = ':app:createDebugCoverageReport'
+def javaTaskDependencies = [':Domain:test', ':Data:test']
 
 def excludedClasses = [
     '**/R.class',
@@ -33,7 +33,8 @@ def moduleSrcDir = 'src/main/java'
 
 def pureJavaClassDir = 'classes/java/main'
 def androidJavaClassDir = 'intermediates/classes/debug'
-def kotlinClassDir = 'tmp/kotlin-classes/debug'
+def kotlinAndroidClassDir = 'tmp/kotlin-classes/debug'
+def kotlinClassDir = 'classes/kotlin/main'
 
 def pureJavaTree = fileTree(dir: "$project.buildDir/$pureJavaClassDir", excludes: excludedClasses)
 def androidJavaTree = fileTree(dir: "$project.buildDir/$androidJavaClassDir", excludes: excludedClasses)
@@ -74,6 +75,33 @@ task androidModuleInstrumentedCoverageReport(type: JacocoReport, dependsOn: andr
   executionData = fileTree(dir: project.buildDir, includes: executionDataFiles)
 }
 
-task jacocoCombinedDebugUnitCoverageReport(dependsOn: [javaModuleCoverageReport, androidModuleUnitCoverageReport])
+task jacocoCombinedDebugUnitCoverageReport(type: JacocoReport, dependsOn: [javaTaskDependencies, androidTaskDependenciesUnit]) {
+  reports {
+    html.enabled htmlEnabled
+    xml.enabled xmlEnabled
+  }
+
+  def appJavaTree = fileTree(dir: "app/build/$pureJavaClassDir", excludes: excludedClasses)
+  def appAndroidJavaTree = fileTree(dir: "app/build/$androidJavaClassDir", excludes: excludedClasses)
+  def appKotlinJavaTree = fileTree(dir: "app/build/$kotlinAndroidClassDir", excludes: excludedClasses)
+  def appDebugTree = appAndroidJavaTree + appJavaTree + appKotlinJavaTree
+
+  def dataJavaTree = fileTree(dir: "Data/build/$pureJavaClassDir", excludes: excludedClasses)
+  def dataAndroidJavaTree = fileTree(dir: "Data/build/$androidJavaClassDir", excludes: excludedClasses)
+  def dataKotlinJavaTree = fileTree(dir: "Data/build/$kotlinClassDir", excludes: excludedClasses)
+  def dataDebugTree = dataAndroidJavaTree + dataJavaTree + dataKotlinJavaTree
+
+  def domainJavaTree = fileTree(dir: "Domain/build/$pureJavaClassDir", excludes: excludedClasses)
+  def domainAndroidJavaTree = fileTree(dir: "Domain/build/$androidJavaClassDir", excludes: excludedClasses)
+  def domainKotlinJavaTree = fileTree(dir: "Domain/build/$kotlinClassDir", excludes: excludedClasses)
+  def domainDebugTree = domainAndroidJavaTree + domainJavaTree + domainKotlinJavaTree
+
+  sourceDirectories = files(['app/src/main/java', 'Data/src/main/java', 'Domain/src/main/java'])
+  classDirectories = files([appDebugTree, dataDebugTree, domainDebugTree])
+  def appExecutionData = fileTree(dir: 'app/build', includes: executionDataFiles)
+  def domainExecutionData = fileTree(dir: 'Domain/build', includes: executionDataFiles)
+  def dataExecutionData = fileTree(dir: 'Data/build', includes: executionDataFiles)
+  executionData = appExecutionData + domainExecutionData + dataExecutionData
+}
 
 task jacocoCombinedDebugCoverageReport(dependsOn: [jacocoCombinedDebugUnitCoverageReport, androidModuleInstrumentedCoverageReport])

@@ -4,6 +4,7 @@ buildscript {
   repositories {
     google()
     jcenter()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
   }
   dependencies {
     apply from: 'dependencies.gradle'
@@ -22,6 +23,8 @@ buildscript {
 apply from: 'dependencies.gradle'
 
 allprojects {
+  apply from: rootProject.file("gradle/jacoco.gradle")
+
   repositories {
     google()
     jcenter()
