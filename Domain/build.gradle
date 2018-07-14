@@ -1,17 +1,16 @@
-apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
 dependencies {
-  compile deps.kotlin.stdlib
-
   def domainDependencies = rootProject.ext.moduleDeps.domain
 
+  implementation domainDependencies.kotlin
   implementation domainDependencies.javax.annotation
   implementation domainDependencies.javax.inject
   implementation domainDependencies.rxJava
 
   testImplementation domainDependencies.junit
   testImplementation domainDependencies.mockito
+  testImplementation domainDependencies.mockitoKotlin
 }
 
 sourceCompatibility = "1.8"
@@ -26,9 +25,7 @@ buildscript {
     classpath deps.kotlin.plugin
   }
 }
-repositories {
-  mavenCentral()
-}
+
 compileKotlin {
   kotlinOptions {
     jvmTarget = "1.8"

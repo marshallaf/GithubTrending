@@ -144,8 +144,8 @@ jobs:
               --app app/build/outputs/apk/debug/app-debug.apk
               --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
               --device model=Nexus5X,version=26,locale=en_US,orientation=portrait
-              --environment-variables coverage=true,coverageFile="/sdcard/coverage.ec"
-              --directories-to-pull=/sdcard --timeout 20m
+              --environment-variables coverage=true,coverageFile="/sdcard/coverage/coverage.ec"
+              --directories-to-pull=/sdcard/coverage --timeout 20m
               --no-record-video
       - run:
           name: Create directory to store test results
