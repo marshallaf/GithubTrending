@@ -153,6 +153,7 @@ jobs:
           command: ./gradlew androidDependencies
       - *attach_debug_workspace
       - *attach_firebase_workspace
+      - *export_codacy_key
       - run:
           name: Move Firebase coverage report
           command: >
