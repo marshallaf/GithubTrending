@@ -56,24 +56,6 @@ references:
       _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
 
-  # Gcloud config -- perhaps not needed since gcloud is supposedly installed on all Android CircleCI images now
-  gcloud_config: &gcloud_config
-    working_directory: *workspace
-    docker:
-      - image: google/cloud-sdk:latest
-    environment:
-      TERM: dumb
-
-  # Google services
-#  export_gservices_key: &export_gservices_key
-#    run:
-#      name: Export Google services key environment variable
-#      command: echo 'export GOOGLE_SERVICES_KEY="$GOOGLE_SERVICES_KEY"' >> $BASH_ENV
-#  decode_gservices_key:
-#    run:
-#      name: Decode Google services key to JSON file
-#      command: echo $GOOGLE_SERVICES_KEY | base64 -di > app/google-services.json
-
   # Gcloud services
   export_gcloud_key: &export_gcloud_key
     run:
@@ -83,6 +65,12 @@ references:
     run:
       name: Decode Google cloud key to JSON file
       command: echo $GOOGLE_CLOUD_KEY | base64 -di > ${HOME}/client-secret.json
+
+  # Codacy key
+  export_codacy_key: &export_codacy_key
+    run:
+      name: Export Codacy project key environment variable
+      command: echo 'export CODACY_PROJECT_KEY="$CODACY_PROJECT_KEY"' >> $BASH_ENV
 
 jobs:
   build_debug:
@@ -95,8 +83,6 @@ jobs:
           name: Download dependencies
           command: ./gradlew androidDependencies
       - *save_cache
-#      - *export_gservices_key
-#      - *decode_gservices_key
       - run:
           name: Gradle build debug
           command: ./gradlew -PciBuild=true assembleDebug assembleAndroidTest
@@ -111,8 +97,6 @@ jobs:
           name: Download dependencies
           command: ./gradlew androidDependencies
       - *save_cache
-#      - *export_gservices_key
-#      - *decode_gservices_key
       - run:
           name: Run unit tests
           command: ./gradlew -PciBuild=true testDebugUnitTest
@@ -169,17 +153,18 @@ jobs:
           command: ./gradlew androidDependencies
       - *attach_debug_workspace
       - *attach_firebase_workspace
+      - *export_codacy_key
       - run:
           name: Move Firebase coverage report
-          command: mkdir -p app/build/outputs/code-coverage/connected && cp firebase/Nexus5X-26-en_US-portrait/artifacts/coverage.ec app/build/outputs/code-coverage/connected/coverage.ec
-#      - *export_gservices_key
-#      - *decode_gservices_key
+          command: >
+              mkdir -p app/build/outputs/code-coverage/connected &&
+              cp firebase/Nexus5X-26-en_US-portrait/artifacts/coverage.ec app/build/outputs/code-coverage/connected/coverage.ec
       - run:
           name: Generate JaCoCo report
           command: ./gradlew -PciBuild=true jacocoCombinedDebugUnitCoverageReport
-#      - run:
-#          name: Upload coverage report to Codacy
-#          command: ./gradlew -PciBuild=true uploadCoverageToCodacy
+      - run:
+          name: Upload coverage report to Codacy
+          command: ./gradlew -PciBuild=true uploadCoverageToCodacy
 #      - run:
 #          name: Upload coverage report to CodeCov
 #          command: bash <(curl -s https://codecov.io/bash)
