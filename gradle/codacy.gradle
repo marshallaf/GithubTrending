@@ -3,11 +3,13 @@ task uploadCoverageToCodacy(type: JavaExec, dependsOn: jacocoCombinedDebugUnitCo
   classpath = configurations.codacy
   args = [
       "report",
+      "-t",
+      (System.getenv("CODACY_PROJECT_KEY") ?: "none"),
       "-l",
       "Kotlin",
       "-f",
       "-r",
-      "${buildDir}/reports/jacoco/javaModuleCoverageReport/javaModuleCoverageReport.xml"
+      "${project.rootDir}/build/reports/jacoco/jacocoCombinedDebugUnitCoverageReport/jacocoCombinedDebugUnitCoverageReport.xml"
   ]
 }
 
