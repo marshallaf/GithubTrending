@@ -44,63 +44,66 @@ ext.versions = [
 
 ext.deps = [
     // android
-    'kotlin'           : [
+    'kotlin'            : [
         'stdlib': "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin",
         'plugin': "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin",
     ],
-    'gradle'           : "com.android.tools.build:gradle:$versions.gradle",
+    'gradle'            : "com.android.tools.build:gradle:$versions.gradle",
 
     // annotation
-    'androidAnnotation': "com.android.support:support-annotations:$versions.androidAnnotation",
+    'androidAnnotation' : "com.android.support:support-annotations:$versions.androidAnnotation",
 
     // dagger
-    'dagger'           : [
+    'dagger'            : [
         'core'    : "com.google.dagger:dagger:$versions.dagger",
         'compiler': "com.google.dagger:dagger-compiler:$versions.dagger"
     ],
 
     // javax
-    'javax'            : [
+    'javax'             : [
         'annotation': "javax.annotation:javax.annotation-api:$versions.javaxAnnotation",
         'inject'    : "javax.inject:javax.inject:$versions.javaxInject"
     ],
 
     // network
-    'okhttp'           : "com.squareup.okhttp3:okhttp:$versions.okhttp",
-    'retrofit'         : [
+    'okhttp'            : [
+        'core'   : "com.squareup.okhttp3:okhttp:$versions.okhttp",
+        'logging': "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
+    ],
+    'retrofit'          : [
         'core'          : "com.squareup.retrofit2:retrofit:$versions.retrofit",
         'rxAdapter'     : "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
         'moshiConverter': "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
     ],
-    'moshi'            : "com.squareup.moshi:moshi:$versions.moshi",
+    'moshi'             : "com.squareup.moshi:moshi:$versions.moshi",
 
     // rx
-    'rxJava'           : "io.reactivex.rxjava2:rxjava:$versions.rxJava",
-    'rxKotlin'         : "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin",
+    'rxJava'            : "io.reactivex.rxjava2:rxjava:$versions.rxJava",
+    'rxKotlin'          : "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin",
 
     // support
-    'support'          : "com.android.support:appcompat-v7:$versions.supportLibrary",
+    'support'           : "com.android.support:appcompat-v7:$versions.supportLibrary",
 
     // testing
-    'junit'            : "junit:junit:$versions.junit",
-    'kotlinJunit'      : "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin",
-    'testRunner'       : "com.android.support.test:runner:$versions.testRunner",
-    'espresso'         : "com.android.support.test.espresso:espresso-core:$versions.espresso",
-    'mockito'          : "org.mockito:mockito-core:$versions.mockito",
-    'mockitoKotlin'    : "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoKotlin",
-    'jacoco'           : [
+    'junit'             : "junit:junit:$versions.junit",
+    'kotlinJunit'       : "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin",
+    'testRunner'        : "com.android.support.test:runner:$versions.testRunner",
+    'espresso'          : "com.android.support.test.espresso:espresso-core:$versions.espresso",
+    'mockito'           : "org.mockito:mockito-core:$versions.mockito",
+    'mockitoKotlin'     : "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoKotlin",
+    'jacoco'            : [
         'core'  : "org.jacoco:org.jacoco.core:$versions.jacoco",
         'agent' : "org.jacoco:org.jacoco.agent:$versions.jacoco",
         'report': "org.jacoco:org.jacoco.report:$versions.jacoco"
     ],
-    'robolectric'      : "org.robolectric:robolectric:$versions.robolectric",
-    'androidTestSupport'   : [
+    'robolectric'       : "org.robolectric:robolectric:$versions.robolectric",
+    'androidTestSupport': [
         'runner': "com.android.support.test:runner:$versions.androidTestSupport",
         'rules' : "com.android.support.test:rules:$versions.androidTestSupport"
     ],
 
     // codacy
-    'codacy'           : "com.github.codacy:codacy-coverage-reporter:$versions.codacy"
+    'codacy'            : "com.github.codacy:codacy-coverage-reporter:$versions.codacy"
 ]
 
 ext.moduleDeps = [
@@ -145,7 +148,10 @@ ext.moduleDeps = [
         ],
         'rxKotlin'          : deps.rxKotlin,
         'moshi'             : deps.moshi,
-        'okhttp'            : deps.okhttp,
+        'okhttp'            : [
+            'core'   : deps.okhttp.core,
+            'logging': deps.okhttp.logging
+        ],
         'retrofit'          : [
             'core'          : deps.retrofit.core,
             'rxAdapter'     : deps.retrofit.rxAdapter,

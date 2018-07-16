@@ -11,7 +11,8 @@ dependencies {
     implementation remoteDependencies.javax.inject
     implementation remoteDependencies.rxKotlin
     implementation remoteDependencies.moshi
-    implementation remoteDependencies.okhttp
+    implementation remoteDependencies.okhttp.core
+    implementation remoteDependencies.okhttp.logging
     implementation remoteDependencies.retrofit.core
     implementation remoteDependencies.retrofit.rxAdapter
     implementation remoteDependencies.retrofit.moshiConverter
