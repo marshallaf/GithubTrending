@@ -1,0 +1,6 @@
+
+def androidTaskDependenciesUnit = ':app:testDebugUnitTest'
+def androidTaskDependenciesInstrumented = ':app:createDebugCoverageReport'
+def javaTaskDependencies = [':Domain:test', ':Data:test', ':Remote:test']
+
+task allModuleUnitTest(dependsOn: [androidTaskDependenciesUnit, javaTaskDependencies])
