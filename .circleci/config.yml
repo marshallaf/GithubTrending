@@ -99,7 +99,7 @@ jobs:
       - *save_cache
       - run:
           name: Run unit tests
-          command: ./gradlew -PciBuild=true testDebugUnitTest
+          command: ./gradlew -PciBuild=true allModuleUnitTest
       - *persist_debug_workspace
       - store_artifacts:
           path: app/build/reports

@@ -6,7 +6,7 @@ def xmlEnabled = true
 
 def androidTaskDependenciesUnit = ':app:testDebugUnitTest'
 def androidTaskDependenciesInstrumented = ':app:createDebugCoverageReport'
-def javaTaskDependencies = [':Domain:test', ':Data:test']
+def javaTaskDependencies = [':Domain:test', ':Data:test', ':Remote:test']
 
 def excludedClasses = [
     '**/R.class',
@@ -96,12 +96,18 @@ task jacocoCombinedDebugUnitCoverageReport(type: JacocoReport, dependsOn: [javaT
   def domainKotlinJavaTree = fileTree(dir: "Domain/build/$kotlinClassDir", excludes: excludedClasses)
   def domainDebugTree = domainAndroidJavaTree + domainJavaTree + domainKotlinJavaTree
 
-  sourceDirectories = files(['app/src/main/java', 'Data/src/main/java', 'Domain/src/main/java'])
-  classDirectories = files([appDebugTree, dataDebugTree, domainDebugTree])
+  def remoteJavaTree = fileTree(dir: "Remote/build/$pureJavaClassDir", excludes: excludedClasses)
+  def remoteAndroidJavaTree = fileTree(dir: "Remote/build/$androidJavaClassDir", excludes: excludedClasses)
+  def remoteKotlinJavaTree = fileTree(dir: "Remote/build/$kotlinClassDir", excludes: excludedClasses)
+  def remoteDebugTree = remoteAndroidJavaTree + remoteJavaTree + remoteKotlinJavaTree
+
+  sourceDirectories = files(['app/src/main/java', 'Data/src/main/java', 'Domain/src/main/java', 'Remote/src/main/java'])
+  classDirectories = files([appDebugTree, dataDebugTree, domainDebugTree, remoteDebugTree])
   def appExecutionData = fileTree(dir: 'app/build', includes: executionDataFiles)
   def domainExecutionData = fileTree(dir: 'Domain/build', includes: executionDataFiles)
   def dataExecutionData = fileTree(dir: 'Data/build', includes: executionDataFiles)
-  executionData = appExecutionData + domainExecutionData + dataExecutionData
+  def remoteExecutionData = fileTree(dir: 'Remote/build', includes: executionDataFiles)
+  executionData = appExecutionData + domainExecutionData + dataExecutionData + remoteExecutionData
 }
 
 task jacocoCombinedDebugCoverageReport(dependsOn: [jacocoCombinedDebugUnitCoverageReport, androidModuleInstrumentedCoverageReport])

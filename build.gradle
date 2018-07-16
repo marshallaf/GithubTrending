@@ -23,6 +23,7 @@ buildscript {
 apply from: 'dependencies.gradle'
 
 allprojects {
+  apply from: rootProject.file("gradle/test.gradle")
   apply from: rootProject.file("gradle/jacoco.gradle")
 
   repositories {

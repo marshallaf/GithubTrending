@@ -1,0 +1,30 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    def remoteDependencies = rootProject.ext.moduleDeps.remote
+
+    implementation project(':Data')
+
+    // application
+    implementation remoteDependencies.kotlin
+    implementation remoteDependencies.javax.annotation
+    implementation remoteDependencies.javax.inject
+    implementation remoteDependencies.rxKotlin
+    implementation remoteDependencies.moshi
+    implementation remoteDependencies.okhttp.core
+    implementation remoteDependencies.okhttp.logging
+    implementation remoteDependencies.retrofit.core
+    implementation remoteDependencies.retrofit.rxAdapter
+    implementation remoteDependencies.retrofit.moshiConverter
+    implementation remoteDependencies.androidAnnotation
+
+    // testing
+    implementation remoteDependencies.junit
+    implementation remoteDependencies.kotlinJunit
+    implementation remoteDependencies.mockitoKotlin
+    implementation remoteDependencies.androidTestSupport.runner
+    implementation remoteDependencies.androidTestSupport.rules
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
