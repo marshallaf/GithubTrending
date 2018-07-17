@@ -4,6 +4,7 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import com.marshallaf.cache.dao.CachedProjectsDao
 import com.marshallaf.cache.model.CachedProject
 import javax.inject.Inject
 
