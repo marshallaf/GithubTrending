@@ -5,13 +5,20 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.marshallaf.cache.dao.CachedProjectsDao
+import com.marshallaf.cache.dao.ConfigurationDao
 import com.marshallaf.cache.model.CachedProject
+import com.marshallaf.cache.model.Configuration
 import javax.inject.Inject
 
-@Database(entities = arrayOf(CachedProject::class), version = 1)
+@Database(entities = arrayOf(
+    CachedProject::class,
+    Configuration::class
+), version = 1)
 abstract class ProjectsDatabase @Inject constructor(): RoomDatabase() {
 
   abstract fun cachedProjectsDao(): CachedProjectsDao
+
+  abstract fun configurationDao(): ConfigurationDao
 
   private var INSTANCE: ProjectsDatabase? = null
   private val lock = Any()
