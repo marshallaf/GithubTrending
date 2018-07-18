@@ -16,4 +16,16 @@ object ProjectDataFactory {
         DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
         DataFactory.randomBoolean())
   }
+
+  fun makeBookmarkedProjectEntity(): ProjectEntity {
+    return ProjectEntity(DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
+        DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
+        true)
+  }
+
+  fun makeUnbookmarkedProjectEntity(): ProjectEntity {
+    return ProjectEntity(DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
+        DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
+        false)
+  }
 }

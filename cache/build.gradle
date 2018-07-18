@@ -41,5 +41,7 @@ dependencies {
   testImplementation cacheDeps.mockitoKotlin
   testImplementation cacheDeps.androidTestSupport.runner
   testImplementation cacheDeps.androidTestSupport.rules
-  testImplementation cacheDeps.room.testing
+  testImplementation cacheDeps.archTesting.core
+  testImplementation cacheDeps.archTesting.room
+  testImplementation cacheDeps.robolectric
 }

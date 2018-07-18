@@ -2,7 +2,6 @@ package com.marshallaf.cache
 
 import com.marshallaf.cache.db.ProjectsDatabase
 import com.marshallaf.cache.mapper.CachedProjectMapper
-import com.marshallaf.cache.model.CachedProject
 import com.marshallaf.cache.model.Configuration
 import com.marshallaf.data.model.ProjectEntity
 import com.marshallaf.data.repository.ProjectsCache
@@ -59,8 +58,8 @@ class ProjectsCacheImpl @Inject constructor(
 
   override fun areProjectsCached(): Single<Boolean> {
     return projectsDatabase.cachedProjectsDao().getProjects()
-        .isEmpty
-        .map { !it }
+        .take(1)
+        .all { !it.isEmpty() }
   }
 
   override fun setLastCacheTime(lastCache: Long): Completable {
@@ -74,7 +73,8 @@ class ProjectsCacheImpl @Inject constructor(
     val currentTime = System.currentTimeMillis()
     val expirationTime = TimeUnit.DAYS.toMillis(1)
     return projectsDatabase.configurationDao().getConfiguration()
-        .single(Configuration(lastCacheTime = 0))
+        .defaultIfEmpty(Configuration(lastCacheTime = 0))
         .map { currentTime - it.lastCacheTime > expirationTime }
+        .toSingle()
   }
 }
