@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+  compileSdkVersion versions.androidCompileSdk
+  defaultConfig {
+    minSdkVersion versions.androidMinSdk
+    targetSdkVersion versions.androidTargetSdk
+  }
+
+  buildTypes {
+    debug {
+      testCoverageEnabled = jacocoEnabled
+    }
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+}
+
+dependencies {
+  def cacheDeps = rootProject.ext.moduleDeps.cache
+
+  compileOnly cacheDeps.javax.annotation
+
+  implementation project(':Data')
+
+  implementation cacheDeps.kotlin
+  implementation cacheDeps.javax.inject
+  implementation cacheDeps.rxKotlin
+  implementation cacheDeps.moshi
+  implementation cacheDeps.room.core
+  implementation cacheDeps.room.rxJava
+  kapt cacheDeps.room.compiler
+
+  testImplementation cacheDeps.junit
+  testImplementation cacheDeps.kotlinJunit
+  testImplementation cacheDeps.mockitoKotlin
+  testImplementation cacheDeps.androidTestSupport.runner
+  testImplementation cacheDeps.androidTestSupport.rules
+  testImplementation cacheDeps.archTesting.core
+  testImplementation cacheDeps.archTesting.room
+  testImplementation cacheDeps.robolectric
+}

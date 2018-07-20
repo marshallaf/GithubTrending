@@ -1,5 +1,5 @@
 
-def androidTaskDependenciesUnit = ':app:testDebugUnitTest'
+def androidTaskDependenciesUnit = [':app:testDebugUnitTest', ':cache:testDebugUnitTest']
 def androidTaskDependenciesInstrumented = ':app:createDebugCoverageReport'
 def javaTaskDependencies = [':Domain:test', ':Data:test', ':Remote:test']
 
