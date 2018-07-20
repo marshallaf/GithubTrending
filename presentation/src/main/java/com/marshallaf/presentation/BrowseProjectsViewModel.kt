@@ -29,9 +29,7 @@ class BrowseProjectsViewModel @Inject constructor(
     super.onCleared()
   }
 
-  fun getProjects(): LiveData<Resource<List<ProjectModel>>> {
-    return liveData
-  }
+  fun getProjects() = liveData
 
   fun fetchProjects() {
     liveData.postValue(Resource(ResourceState.LOADING, null, null))
