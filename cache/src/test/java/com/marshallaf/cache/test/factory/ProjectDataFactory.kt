@@ -6,26 +6,22 @@ import com.marshallaf.data.model.ProjectEntity
 object ProjectDataFactory {
 
   fun makeCachedProject(): CachedProject {
+    return makeCachedProject(DataFactory.randomBoolean())
+  }
+
+  fun makeCachedProject(bookmarked: Boolean): CachedProject {
     return CachedProject(DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
         DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
-        DataFactory.randomBoolean())
+        bookmarked)
   }
 
   fun makeProjectEntity(): ProjectEntity {
-    return ProjectEntity(DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
-        DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
-        DataFactory.randomBoolean())
+    return makeProjectEntity(DataFactory.randomBoolean())
   }
 
-  fun makeBookmarkedProjectEntity(): ProjectEntity {
+  fun makeProjectEntity(bookmarked: Boolean): ProjectEntity {
     return ProjectEntity(DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
         DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
-        true)
-  }
-
-  fun makeUnbookmarkedProjectEntity(): ProjectEntity {
-    return ProjectEntity(DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
-        DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(),
-        false)
+        bookmarked)
   }
 }

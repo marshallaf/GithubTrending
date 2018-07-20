@@ -3,7 +3,6 @@ package com.marshallaf.cache
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
 import com.marshallaf.cache.db.ProjectsDatabase
 import com.marshallaf.cache.mapper.CachedProjectMapper
 import com.marshallaf.cache.test.factory.ProjectDataFactory
@@ -57,8 +56,8 @@ class ProjectsCacheImplTest {
   }
 
   @Test fun getBookmarkedProjects_returnsExpected() {
-    val bookmarked = ProjectDataFactory.makeBookmarkedProjectEntity()
-    val projects = listOf(ProjectDataFactory.makeUnbookmarkedProjectEntity(), bookmarked)
+    val bookmarked = ProjectDataFactory.makeProjectEntity(true)
+    val projects = listOf(ProjectDataFactory.makeProjectEntity(false), bookmarked)
     projectsCacheImpl.saveProjects(projects).test()
 
     projectsCacheImpl.getBookmarkedProjects().test()
@@ -67,7 +66,7 @@ class ProjectsCacheImplTest {
   }
 
   @Test fun setProjectBookmarked_setsBookmarkState() {
-    val unbookmarked = ProjectDataFactory.makeUnbookmarkedProjectEntity()
+    val unbookmarked = ProjectDataFactory.makeProjectEntity(false)
     projectsCacheImpl.saveProjects(listOf(unbookmarked)).test()
 
     projectsCacheImpl.setProjectBookmarked(unbookmarked.id).test()
@@ -78,7 +77,7 @@ class ProjectsCacheImplTest {
   }
 
   @Test fun setProjectUnbookmarked_setsBookmarkState() {
-    val bookmarked = ProjectDataFactory.makeBookmarkedProjectEntity()
+    val bookmarked = ProjectDataFactory.makeProjectEntity(true)
     projectsCacheImpl.saveProjects(listOf(bookmarked))
 
     projectsCacheImpl.setProjectUnbookmarked(bookmarked.id).test()
