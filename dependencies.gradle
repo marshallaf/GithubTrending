@@ -36,7 +36,7 @@ ext.versions = [
     'junit'             : '4.12',
     'testRunner'        : '1.0.2',
     'espresso'          : '3.0.2',
-    'mockito'           : '2.19.0',
+    'mockito'           : '2.19.1',
     'mockitoKotlin'     : '2.0.0-RC1',
     'jacoco'            : '0.8.2-SNAPSHOT',
     'robolectric'       : '3.8',
@@ -246,6 +246,7 @@ ext.moduleDeps = [
         'junit'            : deps.junit,
         'kotlinJunit'      : deps.kotlinJunit,
         'mockitoKotlin'    : deps.mockitoKotlin,
-        'robolectric'      : deps.robolectric
+        'robolectric'      : deps.robolectric,
+        'archTesting'      : deps.archTesting.core
     ]
 ]

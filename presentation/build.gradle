@@ -43,4 +43,5 @@ dependencies {
   testImplementation presentationDeps.kotlinJunit
   testImplementation presentationDeps.mockitoKotlin
   testImplementation presentationDeps.robolectric
+  testImplementation presentationDeps.archTesting
 }
