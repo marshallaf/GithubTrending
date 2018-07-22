@@ -21,7 +21,7 @@ dependencies {
     // testing
     implementation remoteDependencies.junit
     implementation remoteDependencies.kotlinJunit
-    implementation remoteDependencies.mockitoKotlin
+    implementation remoteDependencies.mockito
     implementation remoteDependencies.androidTestSupport.runner
     implementation remoteDependencies.androidTestSupport.rules
 }

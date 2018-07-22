@@ -41,7 +41,7 @@ dependencies {
   // testing
   testImplementation presentationDeps.junit
   testImplementation presentationDeps.kotlinJunit
-  testImplementation presentationDeps.mockitoKotlin
+  testImplementation presentationDeps.mockito
   testImplementation presentationDeps.robolectric
   testImplementation presentationDeps.archTesting
 }

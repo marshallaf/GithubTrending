@@ -10,7 +10,6 @@ dependencies {
 
   testImplementation domainDependencies.junit
   testImplementation domainDependencies.mockito
-  testImplementation domainDependencies.mockitoKotlin
 }
 
 sourceCompatibility = "1.8"

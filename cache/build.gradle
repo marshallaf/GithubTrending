@@ -38,7 +38,7 @@ dependencies {
 
   testImplementation cacheDeps.junit
   testImplementation cacheDeps.kotlinJunit
-  testImplementation cacheDeps.mockitoKotlin
+  testImplementation cacheDeps.mockito
   testImplementation cacheDeps.androidTestSupport.runner
   testImplementation cacheDeps.androidTestSupport.rules
   testImplementation cacheDeps.archTesting.core

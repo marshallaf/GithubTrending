@@ -1,14 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
-  compileSdkVersion 27
-
-
-
+  compileSdkVersion versions.androidCompileSdk
   defaultConfig {
-    applicationId "com.marshallaf.mobile_ui"
-    minSdkVersion 21
-    targetSdkVersion 27
+    minSdkVersion versions.androidMinSdk
+    targetSdkVersion versions.androidTargetSdk
     versionCode 1
     versionName "1.0"
 
@@ -17,6 +15,9 @@ android {
   }
 
   buildTypes {
+    debug {
+      testCoverageEnabled = jacocoEnabled
+    }
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -26,10 +27,49 @@ android {
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  def mobileUiDeps = rootProject.ext.moduleDeps.mobileUi
 
-  implementation 'com.android.support:appcompat-v7:27.1.1'
-  testImplementation 'junit:junit:4.12'
-  androidTestImplementation 'com.android.support.test:runner:1.0.2'
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+  compileOnly mobileUiDeps.javax.annotation
+
+  implementation project(':cache')
+  implementation project(':Data')
+  implementation project(':presentation')
+  implementation project(':Remote')
+
+  // application
+  implementation mobileUiDeps.dagger.core
+  kapt mobileUiDeps.dagger.compiler
+  implementation mobileUiDeps.dagger.android
+  implementation mobileUiDeps.dagger.androidSupport
+  kapt mobileUiDeps.dagger.androidCompiler
+  implementation mobileUiDeps.kotlin
+  implementation mobileUiDeps.javax.inject
+  implementation mobileUiDeps.androidAnnotation
+  implementation mobileUiDeps.room.core
+  kapt mobileUiDeps.room.compiler
+  implementation mobileUiDeps.room.rxJava
+  implementation mobileUiDeps.rxKotlin
+  implementation mobileUiDeps.rxAndroid
+  implementation mobileUiDeps.glide.core
+  kapt mobileUiDeps.glide.compiler
+  implementation mobileUiDeps.support.appcompat
+  implementation mobileUiDeps.support.design
+  implementation mobileUiDeps.support.recyclerview
+  implementation mobileUiDeps.timber
+  implementation mobileUiDeps.archComps.core
+  implementation mobileUiDeps.archComps.extensions
+  kapt mobileUiDeps.archComps.compiler
+
+  // testing
+  testImplementation mobileUiDeps.junit
+  testImplementation mobileUiDeps.kotlinJunit
+  testImplementation mobileUiDeps.mockito.core
+  androidTestImplementation mobileUiDeps.mockito.android
+  testImplementation mobileUiDeps.androidTestSupport.runner
+  testImplementation mobileUiDeps.androidTestSupport.rules
+  androidTestImplementation mobileUiDeps.espresso.core
+  androidTestImplementation mobileUiDeps.espresso.intents
+  androidTestImplementation mobileUiDeps.espresso.contrib
+  kaptTest mobileUiDeps.dagger.compiler
+  kaptAndroidTest mobileUiDeps.dagger.compiler
 }
