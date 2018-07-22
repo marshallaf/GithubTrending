@@ -4,8 +4,8 @@ project.ext.jacocoEnabled = true
 def htmlEnabled = true
 def xmlEnabled = true
 
-def androidTaskDependenciesUnit = [':app:testDebugUnitTest', ':cache:testDebugUnitTest', ':presentation:testDebugUnitTest']
-def androidTaskDependenciesInstrumented = ':app:createDebugCoverageReport'
+def androidTaskDependenciesUnit = [':mobile-ui:testDebugUnitTest', ':cache:testDebugUnitTest', ':presentation:testDebugUnitTest']
+def androidTaskDependenciesInstrumented = ':mobile-ui:createDebugCoverageReport'
 def javaTaskDependencies = [':Domain:test', ':Data:test', ':Remote:test']
 
 def excludedClasses = [
@@ -81,10 +81,10 @@ task jacocoCombinedDebugUnitCoverageReport(type: JacocoReport, dependsOn: [javaT
     xml.enabled xmlEnabled
   }
 
-  def appJavaTree = fileTree(dir: "app/build/$pureJavaClassDir", excludes: excludedClasses)
-  def appAndroidJavaTree = fileTree(dir: "app/build/$androidJavaClassDir", excludes: excludedClasses)
-  def appKotlinJavaTree = fileTree(dir: "app/build/$kotlinAndroidClassDir", excludes: excludedClasses)
-  def appDebugTree = appAndroidJavaTree + appJavaTree + appKotlinJavaTree
+  def mobileUiJavaTree = fileTree(dir: "mobile-ui/build/$pureJavaClassDir", excludes: excludedClasses)
+  def mobileUiAndroidJavaTree = fileTree(dir: "mobile-ui/build/$androidJavaClassDir", excludes: excludedClasses)
+  def mobileUiKotlinJavaTree = fileTree(dir: "mobile-ui/build/$kotlinAndroidClassDir", excludes: excludedClasses)
+  def mobileUiDebugTree = mobileUiAndroidJavaTree + mobileUiJavaTree + mobileUiKotlinJavaTree
 
   def cacheJavaTree = fileTree(dir: "cache/build/$pureJavaClassDir", excludes: excludedClasses)
   def cacheAndroidJavaTree = fileTree(dir: "cache/build/$androidJavaClassDir", excludes: excludedClasses)
@@ -111,15 +111,15 @@ task jacocoCombinedDebugUnitCoverageReport(type: JacocoReport, dependsOn: [javaT
   def presentationKotlinJavaTree = fileTree(dir: "presentation/build/$kotlinAndroidClassDir", excludes: excludedClasses)
   def presentationDebugTree = presentationAndroidJavaTree + presentationJavaTree + presentationKotlinJavaTree
 
-  sourceDirectories = files(['app/src/main/java', 'cache/src/main/java', 'Data/src/main/java', 'Domain/src/main/java', 'Remote/src/main/java', 'presentation/src/main/java'])
-  classDirectories = files([appDebugTree, cacheDebugTree, dataDebugTree, domainDebugTree, remoteDebugTree, presentationDebugTree])
-  def appExecutionData = fileTree(dir: 'app/build', includes: executionDataFiles)
+  sourceDirectories = files(['mobile-ui/src/main/java', 'cache/src/main/java', 'Data/src/main/java', 'Domain/src/main/java', 'Remote/src/main/java', 'presentation/src/main/java'])
+  classDirectories = files([mobileUiDebugTree, cacheDebugTree, dataDebugTree, domainDebugTree, remoteDebugTree, presentationDebugTree])
+  def mobileUiExecutionData = fileTree(dir: 'mobile-ui/build', includes: executionDataFiles)
   def cacheExecutionData = fileTree(dir: 'cache/build', includes: executionDataFiles)
   def domainExecutionData = fileTree(dir: 'Domain/build', includes: executionDataFiles)
   def dataExecutionData = fileTree(dir: 'Data/build', includes: executionDataFiles)
   def remoteExecutionData = fileTree(dir: 'Remote/build', includes: executionDataFiles)
   def presentationExecutionData = fileTree(dir: 'presentation/build', includes: executionDataFiles)
-  executionData = appExecutionData + cacheExecutionData + domainExecutionData + dataExecutionData + remoteExecutionData + presentationExecutionData
+  executionData = mobileUiExecutionData + cacheExecutionData + domainExecutionData + dataExecutionData + remoteExecutionData + presentationExecutionData
 }
 
 task jacocoCombinedDebugCoverageReport(dependsOn: [jacocoCombinedDebugUnitCoverageReport, androidModuleInstrumentedCoverageReport])
