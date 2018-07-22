@@ -1,7 +1,7 @@
-package com.marshallaf.mobile_ui.injection
+package com.marshallaf.mobileui.injection
 
 import android.app.Application
-import com.marshallaf.mobile_ui.GithubTrendingApplication
+import com.marshallaf.mobileui.GithubTrendingApplication
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

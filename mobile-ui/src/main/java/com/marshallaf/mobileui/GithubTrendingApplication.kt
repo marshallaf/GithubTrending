@@ -1,8 +1,8 @@
-package com.marshallaf.mobile_ui
+package com.marshallaf.mobileui
 
 import android.app.Activity
 import android.app.Application
-import com.marshallaf.mobile_ui.injection.DaggerApplicationComponent
+import com.marshallaf.mobileui.injection.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector

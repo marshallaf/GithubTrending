@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.marshallaf.mobile_ui">
+    package="com.marshallaf.mobileui">
 
     <application
         android:name=".GithubTrendingApplication"

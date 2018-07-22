@@ -1,4 +1,4 @@
-package com.marshallaf.mobile_ui
+package com.marshallaf.mobileui
 
 import com.marshallaf.domain.executor.PostExecutionThread
 import io.reactivex.Scheduler
