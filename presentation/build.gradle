@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+  compileSdkVersion versions.androidCompileSdk
+  defaultConfig {
+    minSdkVersion versions.androidMinSdk
+    targetSdkVersion versions.androidTargetSdk
+  }
+
+  buildTypes {
+    debug {
+      testCoverageEnabled = jacocoEnabled
+    }
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+}
+
+dependencies {
+
+  def presentationDeps = rootProject.ext.moduleDeps.presentation
+
+  implementation project(':Domain')
+
+  compileOnly presentationDeps.javax.annotation
+
+  // application
+  implementation presentationDeps.kotlin
+  implementation presentationDeps.javax.inject
+  implementation presentationDeps.rxKotlin
+  implementation presentationDeps.androidAnnotation
+  implementation presentationDeps.archComps.core
+  implementation presentationDeps.archComps.extensions
+  kapt presentationDeps.archComps.compiler
+
+  // testing
+  testImplementation presentationDeps.junit
+  testImplementation presentationDeps.kotlinJunit
+  testImplementation presentationDeps.mockitoKotlin
+  testImplementation presentationDeps.robolectric
+  testImplementation presentationDeps.archTesting
+}
