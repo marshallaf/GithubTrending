@@ -33,6 +33,7 @@ dependencies {
 
   implementation project(':cache')
   implementation project(':Data')
+  implementation project(':Domain')
   implementation project(':presentation')
   implementation project(':Remote')
 
