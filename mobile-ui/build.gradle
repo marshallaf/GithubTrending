@@ -55,6 +55,7 @@ dependencies {
   implementation mobileUiDeps.glide.core
   kapt mobileUiDeps.glide.compiler
   implementation mobileUiDeps.support.appcompat
+  implementation mobileUiDeps.support.constraint
   implementation mobileUiDeps.support.design
   implementation mobileUiDeps.support.recyclerview
   implementation mobileUiDeps.timber

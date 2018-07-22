@@ -37,6 +37,7 @@ ext.versions = [
 
     // support
     'supportLibrary'    : '27.1.1',
+    'constraint'        : '1.1.2',
 
     // testing
     'junit'             : '4.12',
@@ -120,6 +121,7 @@ ext.deps = [
     // support
     'support'           : [
         'appcompat'   : "com.android.support:appcompat-v7:$versions.supportLibrary",
+        'constraint'  : "com.android.support.constraint:constraint-layout:$versions.constraint",
         'design'      : "com.android.support:design:$versions.supportLibrary",
         'recyclerview': "com.android.support:recyclerview-v7:$versions.supportLibrary"
     ],
@@ -256,6 +258,7 @@ ext.moduleDeps = [
         ],
         'support'           : [
             'appcompat'   : deps.support.appcompat,
+            'constraint'  : deps.support.constraint,
             'design'      : deps.support.design,
             'recyclerview': deps.support.recyclerview
         ],
