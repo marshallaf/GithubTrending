@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">mobile-ui</string>
+  <string name="bookmarked_projects">Bookmarked Projects</string>
+  <string name="bookmarked">Bookmarked</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.marshallaf.remote.service
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,9 +21,15 @@ object GithubTrendingServiceFactory {
         .baseUrl("https://api.github.com/")
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(makeMoshi()))
         .build()
     return retrofit.create(GithubTrendingService::class.java)
+  }
+
+  private fun makeMoshi(): Moshi {
+    return Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
   }
 
   private fun makeOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {

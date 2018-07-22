@@ -104,7 +104,10 @@ ext.deps = [
         'rxAdapter'     : "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
         'moshiConverter': "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
     ],
-    'moshi'             : "com.squareup.moshi:moshi:$versions.moshi",
+    'moshi'             : [
+        'core'  : "com.squareup.moshi:moshi:$versions.moshi",
+        'kotlin': "com.squareup.moshi:moshi-kotlin:$versions.moshi"
+    ],
 
     // room
     'room'              : [
@@ -172,7 +175,10 @@ ext.moduleDeps = [
             'inject'    : deps.javax.inject
         ],
         'androidAnnotation' : deps.androidAnnotation,
-        'moshi'             : deps.moshi,
+        'moshi'             : [
+            'core'  : deps.moshi.core,
+            'kotlin': deps.moshi.kotlin
+        ],
         'room'              : [
             'core'    : deps.room.core,
             'compiler': deps.room.compiler,
@@ -290,7 +296,10 @@ ext.moduleDeps = [
             'inject'    : deps.javax.inject
         ],
         'rxKotlin'          : deps.rxKotlin,
-        'moshi'             : deps.moshi,
+        'moshi'             : [
+            'core'  : deps.moshi.core,
+            'kotlin': deps.moshi.kotlin
+        ],
         'okhttp'            : [
             'core'   : deps.okhttp.core,
             'logging': deps.okhttp.logging

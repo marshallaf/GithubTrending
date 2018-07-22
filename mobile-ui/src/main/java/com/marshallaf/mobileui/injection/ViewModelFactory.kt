@@ -11,7 +11,8 @@ open class ViewModelFactory : ViewModelProvider.Factory {
 
   private val creators: Map<Class<out ViewModel>, Provider<ViewModel>>
 
-  @Inject constructor(creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>) {
+  @Inject constructor(creators: Map<Class<out ViewModel>,
+      @JvmSuppressWildcards Provider<ViewModel>>) {
     this.creators = creators
   }
 
@@ -26,7 +27,7 @@ open class ViewModelFactory : ViewModelProvider.Factory {
       }
     }
     if (creator == null) {
-      throw IllegalStateException("Unknown model class: " + modelClass)
+      throw IllegalStateException("Unknown model class: $modelClass")
     }
     try {
       return creator.get() as T
@@ -34,4 +35,5 @@ open class ViewModelFactory : ViewModelProvider.Factory {
       throw RuntimeException(e)
     }
   }
+
 }

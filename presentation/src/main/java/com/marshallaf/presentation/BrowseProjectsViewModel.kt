@@ -3,6 +3,7 @@ package com.marshallaf.presentation
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 import com.marshallaf.domain.interactor.bookmark.BookmarkProject
 import com.marshallaf.domain.interactor.bookmark.UnbookmarkProject
 import com.marshallaf.domain.interactor.browse.GetProjects
@@ -48,10 +49,13 @@ class BrowseProjectsViewModel @Inject constructor(
 
   inner class ProjectsSubscriber: DisposableObserver<List<Project>>() {
     override fun onNext(projects: List<Project>) {
+      Log.d("BrowseProjectsViewModel", "received project list of size ${projects.count()}")
       liveData.postValue(Resource(ResourceState.SUCCESS, projects.map { mapper.mapToModel(it) }, null))
     }
 
     override fun onError(e: Throwable) {
+      Log.e("BrowseProjectsViewModel", e.message)
+      e.printStackTrace()
       liveData.postValue(Resource(ResourceState.ERROR, null, e.localizedMessage))
     }
 

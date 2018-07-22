@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.marshallaf.mobileui.R
+import com.marshallaf.mobileui.injection.module.GlideApp
 import com.marshallaf.mobileui.model.UiProject
 import javax.inject.Inject
 
@@ -30,9 +32,9 @@ class BookmarkedAdapter @Inject constructor() : RecyclerView.Adapter<BookmarkedA
     holder.ownerNameText.text = project.ownerName
     holder.projectNameText.text = project.fullName
 
-    Glide.with(holder.itemView.context)
+    GlideApp.with(holder.itemView.context)
         .load(project.ownerAvatar)
-        .apply(RequestOptions.circleCropTransform())
+        .circleCrop()
         .into(holder.avatarImage)
   }
 

@@ -21,7 +21,7 @@ abstract class PresentationModule {
 
   @Binds
   @IntoMap
-  @ViewModelKey(BrowseProjectsViewModel::class)
+  @ViewModelKey(BrowseBookmarkedProjectsViewModel::class)
   abstract fun bindBrowseBookmarkedViewModel(viewModel: BrowseBookmarkedProjectsViewModel): ViewModel
 
   @Binds abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

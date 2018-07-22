@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.marshallaf.mobileui.R
+import com.marshallaf.mobileui.injection.module.GlideApp
 import com.marshallaf.mobileui.model.UiProject
 import javax.inject.Inject
 
@@ -31,9 +32,9 @@ class BrowseAdapter @Inject constructor() : RecyclerView.Adapter<BrowseAdapter.V
     holder.ownerNameText.text = project.ownerName
     holder.projectNameText.text = project.name
 
-    Glide.with(holder.itemView.context)
+    GlideApp.with(holder.itemView.context)
         .load(project.ownerAvatar)
-        .apply(RequestOptions.circleCropTransform())
+        .circleCrop()
         .into(holder.avatarImage)
 
     val starResource = if (project.isBookmarked) {

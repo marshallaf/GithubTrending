@@ -31,7 +31,8 @@ dependencies {
   implementation cacheDeps.kotlin
   implementation cacheDeps.javax.inject
   implementation cacheDeps.rxKotlin
-  implementation cacheDeps.moshi
+  implementation cacheDeps.moshi.core
+  implementation cacheDeps.moshi.kotlin
   implementation cacheDeps.room.core
   implementation cacheDeps.room.rxJava
   kapt cacheDeps.room.compiler

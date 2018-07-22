@@ -3,11 +3,13 @@ package com.marshallaf.mobileui.browse
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.marshallaf.mobileui.R
+import com.marshallaf.mobileui.bookmarked.BookmarkedActivity
 import com.marshallaf.mobileui.injection.ViewModelFactory
 import com.marshallaf.mobileui.mapper.ProjectViewMapper
 import com.marshallaf.mobileui.model.UiProject
@@ -24,11 +26,11 @@ class BrowseActivity : AppCompatActivity() {
   @Inject lateinit var adapter: BrowseAdapter
   @Inject lateinit var mapper: ProjectViewMapper
   @Inject lateinit var viewModelFactory: ViewModelFactory
-  @Inject lateinit var viewModel: BrowseProjectsViewModel
+  lateinit var viewModel: BrowseProjectsViewModel
 
-  override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
-    super.onCreate(savedInstanceState, persistentState)
+    super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_bookmarked)
 
@@ -52,6 +54,21 @@ class BrowseActivity : AppCompatActivity() {
           it?.let { handleDataState(it) }
         })
     viewModel.fetchProjects()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.main, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return when (item.itemId) {
+      R.id.action_bookmarked -> {
+        startActivity(BookmarkedActivity.getStartIntent(this))
+        true
+      }
+      else -> super.onOptionsItemSelected(item)
+    }
   }
 
   private fun handleDataState(resource: Resource<List<ProjectModel>>) {

@@ -2,13 +2,14 @@ package com.marshallaf.remote.mapper
 
 import com.marshallaf.data.model.ProjectEntity
 import com.marshallaf.remote.model.ProjectModel
+import javax.inject.Inject
 
-class ProjectsResponseModelMapper : ModelMapper<ProjectModel, ProjectEntity> {
+class ProjectsResponseModelMapper @Inject constructor() : ModelMapper<ProjectModel, ProjectEntity> {
 
   override fun mapFromModel(model: ProjectModel): ProjectEntity {
-    return ProjectEntity(model.id, model.name, model.fullName,
-        model.starCount.toString(), model.dateCreated, model.owner.ownerName,
-        model.owner.ownerAvatar)
+    return ProjectEntity(model.id ?: "none", model.name ?: "none", model.fullName ?: "none",
+        model.starCount?.toString() ?: "none", model.dateCreated ?: "none", model.owner?.ownerName ?: "none",
+        model.owner?.ownerAvatar ?: "none")
   }
 
 }

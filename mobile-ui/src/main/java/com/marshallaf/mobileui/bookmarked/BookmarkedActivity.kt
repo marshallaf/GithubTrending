@@ -5,9 +5,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import com.marshallaf.mobileui.R
 import com.marshallaf.mobileui.injection.ViewModelFactory
@@ -26,15 +26,15 @@ class BookmarkedActivity : AppCompatActivity() {
   @Inject lateinit var adapter: BookmarkedAdapter
   @Inject lateinit var mapper: ProjectViewMapper
   @Inject lateinit var viewModelFactory: ViewModelFactory
-  @Inject lateinit var viewModel: BrowseBookmarkedProjectsViewModel
+  lateinit var viewModel: BrowseBookmarkedProjectsViewModel
 
   companion object {
     fun getStartIntent(context: Context) = Intent(context, BookmarkedActivity::class.java)
   }
 
-  override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
-    super.onCreate(savedInstanceState, persistentState)
+    super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_bookmarked)
 
@@ -42,12 +42,23 @@ class BookmarkedActivity : AppCompatActivity() {
         .get(BrowseBookmarkedProjectsViewModel::class.java)
 
     setupBrowseRecycler()
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
   }
 
   private fun setupBrowseRecycler() {
     recycler_projects.let {
       it.layoutManager = LinearLayoutManager(this)
       it.adapter = adapter
+    }
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return when (item.itemId) {
+      android.R.id.home -> {
+        finish()
+        true
+      }
+      else -> super.onOptionsItemSelected(item)
     }
   }
 
