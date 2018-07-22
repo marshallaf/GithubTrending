@@ -1,7 +1,7 @@
 package com.marshallaf.mobileui.injection.module
 
 import com.marshallaf.domain.executor.PostExecutionThread
-import com.marshallaf.mobileui.BrowseActivity
+import com.marshallaf.mobileui.browse.BrowseActivity
 import com.marshallaf.mobileui.UiThread
 import dagger.Binds
 import dagger.Module
