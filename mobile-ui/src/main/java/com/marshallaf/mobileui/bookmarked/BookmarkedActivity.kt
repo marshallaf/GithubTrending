@@ -1,7 +1,9 @@
-package com.marshallaf.mobileui.browse
+package com.marshallaf.mobileui.bookmarked
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
@@ -11,20 +13,24 @@ import com.marshallaf.mobileui.R
 import com.marshallaf.mobileui.injection.ViewModelFactory
 import com.marshallaf.mobileui.mapper.ProjectViewMapper
 import com.marshallaf.mobileui.model.UiProject
-import com.marshallaf.presentation.BrowseProjectsViewModel
+import com.marshallaf.presentation.BrowseBookmarkedProjectsViewModel
 import com.marshallaf.presentation.model.ProjectModel
 import com.marshallaf.presentation.state.Resource
 import com.marshallaf.presentation.state.ResourceState
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_browse.*
+import kotlinx.android.synthetic.main.activity_bookmarked.*
 import javax.inject.Inject
 
-class BrowseActivity : AppCompatActivity() {
+class BookmarkedActivity : AppCompatActivity() {
 
-  @Inject lateinit var adapter: BrowseAdapter
+  @Inject lateinit var adapter: BookmarkedAdapter
   @Inject lateinit var mapper: ProjectViewMapper
   @Inject lateinit var viewModelFactory: ViewModelFactory
-  @Inject lateinit var viewModel: BrowseProjectsViewModel
+  @Inject lateinit var viewModel: BrowseBookmarkedProjectsViewModel
+
+  companion object {
+    fun getStartIntent(context: Context) = Intent(context, BookmarkedActivity::class.java)
+  }
 
   override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
     AndroidInjection.inject(this)
@@ -33,7 +39,7 @@ class BrowseActivity : AppCompatActivity() {
     setContentView(R.layout.activity_bookmarked)
 
     viewModel = ViewModelProviders.of(this, viewModelFactory)
-        .get(BrowseProjectsViewModel::class.java)
+        .get(BrowseBookmarkedProjectsViewModel::class.java)
 
     setupBrowseRecycler()
   }
