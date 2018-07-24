@@ -66,14 +66,17 @@ dependencies {
   // testing
   testImplementation mobileUiDeps.junit
   testImplementation mobileUiDeps.kotlinJunit
-  testImplementation mobileUiDeps.mockito.core
-  androidTestImplementation mobileUiDeps.mockito.core
-  androidTestImplementation mobileUiDeps.mockito.android
+  testImplementation mobileUiDeps.mockito.kotlin
   testImplementation mobileUiDeps.androidTestSupport.runner
   testImplementation mobileUiDeps.androidTestSupport.rules
+  kaptTest mobileUiDeps.dagger.compiler
+
+  androidTestImplementation mobileUiDeps.junit
+  androidTestImplementation mobileUiDeps.kotlinJunit
+  androidTestImplementation mobileUiDeps.mockito.android
+  androidTestImplementation mobileUiDeps.mockito.kotlin
   androidTestImplementation mobileUiDeps.espresso.core
   androidTestImplementation mobileUiDeps.espresso.intents
   androidTestImplementation mobileUiDeps.espresso.contrib
-  kaptTest mobileUiDeps.dagger.compiler
   kaptAndroidTest mobileUiDeps.dagger.compiler
 }

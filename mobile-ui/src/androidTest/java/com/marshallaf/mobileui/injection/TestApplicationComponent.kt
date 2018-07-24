@@ -1,8 +1,10 @@
 package com.marshallaf.mobileui.injection
 
 import android.app.Application
-import com.marshallaf.mobileui.GithubTrendingApplication
-import com.marshallaf.mobileui.injection.module.*
+import com.marshallaf.domain.repository.ProjectsRepository
+import com.marshallaf.mobileui.browse.BrowseActivityTest
+import com.marshallaf.mobileui.injection.module.PresentationModule
+import com.marshallaf.mobileui.injection.module.UiModule
 import com.marshallaf.mobileui.test.TestApplication
 import dagger.BindsInstance
 import dagger.Component
@@ -27,8 +29,9 @@ interface TestApplicationComponent {
     @BindsInstance
     fun application(application: Application): TestApplicationComponent.Builder
 
-    fun build(): ApplicationComponent
+    fun build(): TestApplicationComponent
   }
 
   fun inject(application: TestApplication)
+  fun projectsRepository(): ProjectsRepository
 }

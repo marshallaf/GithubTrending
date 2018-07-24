@@ -43,7 +43,7 @@ ext.versions = [
     'junit'             : '4.12',
     'testRunner'        : '1.0.2',
     'espresso'          : '3.0.2',
-    'mockito'           : '2.19.1',
+    'mockito'           : '2.19.0',
     'mockitoKotlin'     : '2.0.0-RC1',
     'jacoco'            : '0.8.2-SNAPSHOT',
     'robolectric'       : '3.8',
@@ -274,7 +274,8 @@ ext.moduleDeps = [
         'junit'             : deps.junit,
         'kotlinJunit'       : deps.kotlinJunit,
         'mockito'           : [
-            'core'   : deps.mockito.kotlin,
+            'core'   : deps.mockito.core,
+            'kotlin' : deps.mockito.kotlin,
             'android': deps.mockito.android
         ],
         'androidTestSupport': [

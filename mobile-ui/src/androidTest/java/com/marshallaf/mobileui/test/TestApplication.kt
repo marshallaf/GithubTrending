@@ -3,6 +3,7 @@ package com.marshallaf.mobileui.test
 import android.app.Activity
 import android.app.Application
 import android.support.test.InstrumentationRegistry
+import com.marshallaf.mobileui.injection.DaggerTestApplicationComponent
 import com.marshallaf.mobileui.injection.TestApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -22,7 +23,7 @@ class TestApplication : Application(), HasActivityInjector {
 
   override fun onCreate() {
     super.onCreate()
-    appComponent = DaggerTestApplicationComponent.builder().application(this).build
+    appComponent = DaggerTestApplicationComponent.builder().application(this).build()
     appComponent.inject(this)
   }
 
