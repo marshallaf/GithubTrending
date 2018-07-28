@@ -10,7 +10,8 @@ dependencies {
     implementation remoteDependencies.javax.annotation
     implementation remoteDependencies.javax.inject
     implementation remoteDependencies.rxKotlin
-    implementation remoteDependencies.moshi
+    implementation remoteDependencies.moshi.core
+    implementation remoteDependencies.moshi.kotlin
     implementation remoteDependencies.okhttp.core
     implementation remoteDependencies.okhttp.logging
     implementation remoteDependencies.retrofit.core
@@ -21,7 +22,7 @@ dependencies {
     // testing
     implementation remoteDependencies.junit
     implementation remoteDependencies.kotlinJunit
-    implementation remoteDependencies.mockitoKotlin
+    implementation remoteDependencies.mockito
     implementation remoteDependencies.androidTestSupport.runner
     implementation remoteDependencies.androidTestSupport.rules
 }

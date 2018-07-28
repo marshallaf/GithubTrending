@@ -12,7 +12,6 @@ dependencies {
 
     testImplementation dataDependencies.kotlinJunit
     testImplementation dataDependencies.mockito
-    testImplementation dataDependencies.mockitoKotlin
 }
 
 sourceCompatibility = "1.8"

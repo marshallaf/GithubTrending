@@ -16,6 +16,12 @@ ext.versions = [
     // dagger
     'dagger'            : '2.16',
 
+    // glide
+    'glide'             : '4.7.1',
+
+    // logging
+    'timber'            : '4.7.1',
+
     // network
     'okhttp'            : '3.11.0',
     'retrofit'          : '2.4.0',
@@ -31,12 +37,13 @@ ext.versions = [
 
     // support
     'supportLibrary'    : '27.1.1',
+    'constraint'        : '1.1.2',
 
     // testing
     'junit'             : '4.12',
     'testRunner'        : '1.0.2',
     'espresso'          : '3.0.2',
-    'mockito'           : '2.19.1',
+    'mockito'           : '2.19.0',
     'mockitoKotlin'     : '2.0.0-RC1',
     'jacoco'            : '0.8.2-SNAPSHOT',
     'robolectric'       : '3.8',
@@ -66,8 +73,16 @@ ext.deps = [
 
     // dagger
     'dagger'            : [
-        'core'    : "com.google.dagger:dagger:$versions.dagger",
-        'compiler': "com.google.dagger:dagger-compiler:$versions.dagger"
+        'core'           : "com.google.dagger:dagger:$versions.dagger",
+        'compiler'       : "com.google.dagger:dagger-compiler:$versions.dagger",
+        'android'        : "com.google.dagger:dagger-android:$versions.dagger",
+        'androidSupport' : "com.google.dagger:dagger-android-support:$versions.dagger",
+        'androidCompiler': "com.google.dagger:dagger-android-processor:$versions.dagger"
+    ],
+
+    'glide'             : [
+        'core'    : "com.github.bumptech.glide:glide:$versions.glide",
+        'compiler': "com.github.bumptech.glide:compiler:$versions.glide"
     ],
 
     // javax
@@ -75,6 +90,9 @@ ext.deps = [
         'annotation': "javax.annotation:javax.annotation-api:$versions.javaxAnnotation",
         'inject'    : "javax.inject:javax.inject:$versions.javaxInject"
     ],
+
+    // logging
+    'timber'            : "com.jakewharton.timber:timber:$versions.timber",
 
     // network
     'okhttp'            : [
@@ -86,7 +104,10 @@ ext.deps = [
         'rxAdapter'     : "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
         'moshiConverter': "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
     ],
-    'moshi'             : "com.squareup.moshi:moshi:$versions.moshi",
+    'moshi'             : [
+        'core'  : "com.squareup.moshi:moshi:$versions.moshi",
+        'kotlin': "com.squareup.moshi:moshi-kotlin:$versions.moshi"
+    ],
 
     // room
     'room'              : [
@@ -101,15 +122,27 @@ ext.deps = [
     'rxAndroid'         : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
 
     // support
-    'support'           : "com.android.support:appcompat-v7:$versions.supportLibrary",
+    'support'           : [
+        'appcompat'   : "com.android.support:appcompat-v7:$versions.supportLibrary",
+        'constraint'  : "com.android.support.constraint:constraint-layout:$versions.constraint",
+        'design'      : "com.android.support:design:$versions.supportLibrary",
+        'recyclerview': "com.android.support:recyclerview-v7:$versions.supportLibrary"
+    ],
 
     // testing
     'junit'             : "junit:junit:$versions.junit",
     'kotlinJunit'       : "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin",
     'testRunner'        : "com.android.support.test:runner:$versions.testRunner",
-    'espresso'          : "com.android.support.test.espresso:espresso-core:$versions.espresso",
-    'mockito'           : "org.mockito:mockito-core:$versions.mockito",
-    'mockitoKotlin'     : "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoKotlin",
+    'espresso'          : [
+        'core'   : "com.android.support.test.espresso:espresso-core:$versions.espresso",
+        'intents': "com.android.support.test.espresso:espresso-intents:$versions.espresso",
+        'contrib': "com.android.support.test.espresso:espresso-contrib:$versions.espresso"
+    ],
+    'mockito'           : [
+        'core'   : "org.mockito:mockito-core:$versions.mockito",
+        'kotlin' : "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoKotlin",
+        'android': "org.mockito:mockito-android:$versions.mockito"
+    ],
     'jacoco'            : [
         'core'  : "org.jacoco:org.jacoco.core:$versions.jacoco",
         'agent' : "org.jacoco:org.jacoco.agent:$versions.jacoco",
@@ -142,7 +175,10 @@ ext.moduleDeps = [
             'inject'    : deps.javax.inject
         ],
         'androidAnnotation' : deps.androidAnnotation,
-        'moshi'             : deps.moshi,
+        'moshi'             : [
+            'core'  : deps.moshi.core,
+            'kotlin': deps.moshi.kotlin
+        ],
         'room'              : [
             'core'    : deps.room.core,
             'compiler': deps.room.compiler,
@@ -153,7 +189,7 @@ ext.moduleDeps = [
         // testing
         'junit'             : deps.junit,
         'kotlinJunit'       : deps.kotlinJunit,
-        'mockitoKotlin'     : deps.mockitoKotlin,
+        'mockito'           : deps.mockito.kotlin,
         'androidTestSupport': [
             'runner': deps.androidTestSupport.runner,
             'rules' : deps.androidTestSupport.rules
@@ -167,34 +203,90 @@ ext.moduleDeps = [
 
     'domain'      : [
         // application
-        'kotlin'       : deps.kotlin.stdlib,
-        'javax'        : [
+        'kotlin' : deps.kotlin.stdlib,
+        'javax'  : [
             'annotation': deps.javax.annotation,
             'inject'    : deps.javax.inject
         ],
-        'rxJava'       : deps.rxJava,
+        'rxJava' : deps.rxJava,
 
         // testing
-        'junit'        : deps.junit,
-        'mockito'      : deps.mockito,
-        'mockitoKotlin': deps.mockitoKotlin
+        'junit'  : deps.junit,
+        'mockito': deps.mockito.kotlin
     ],
 
     'data'        : [
         // application
-        'kotlin'       : deps.kotlin.stdlib,
-        'javax'        : [
+        'kotlin'     : deps.kotlin.stdlib,
+        'javax'      : [
             'annotation': deps.javax.annotation,
             'inject'    : deps.javax.inject
         ],
-        'rxKotlin'     : deps.rxKotlin,
+        'rxKotlin'   : deps.rxKotlin,
 
         // testing
-        'junit'        : deps.junit,
-        'kotlinJunit'  : deps.kotlinJunit,
-        'mockito'      : deps.mockito,
-        'mockitoKotlin': deps.mockitoKotlin,
-        'robolectric'  : deps.robolectric
+        'junit'      : deps.junit,
+        'kotlinJunit': deps.kotlinJunit,
+        'mockito'    : deps.mockito.kotlin,
+        'robolectric': deps.robolectric
+    ],
+
+    'mobileUi'    : [
+        // application
+        'archComps'         : [
+            'core'      : deps.archComps.core,
+            'extensions': deps.archComps.extensions,
+            'compiler'  : deps.archComps.compiler
+        ],
+        'dagger'            : [
+            'core'           : deps.dagger.core,
+            'compiler'       : deps.dagger.compiler,
+            'android'        : deps.dagger.android,
+            'androidSupport' : deps.dagger.androidSupport,
+            'androidCompiler': deps.dagger.androidCompiler
+        ],
+        'kotlin'            : deps.kotlin.stdlib,
+        'javax'             : [
+            'annotation': deps.javax.annotation,
+            'inject'    : deps.javax.inject
+        ],
+        'androidAnnotation' : deps.androidAnnotation,
+        'room'              : [
+            'core'    : deps.room.core,
+            'compiler': deps.room.compiler,
+            'rxJava'  : deps.room.rxJava
+        ],
+        'rxKotlin'          : deps.rxKotlin,
+        'rxAndroid'         : deps.rxAndroid,
+        'glide'             : [
+            'core'    : deps.glide.core,
+            'compiler': deps.glide.compiler
+        ],
+        'support'           : [
+            'appcompat'   : deps.support.appcompat,
+            'constraint'  : deps.support.constraint,
+            'design'      : deps.support.design,
+            'recyclerview': deps.support.recyclerview
+        ],
+        'timber'            : deps.timber,
+
+        // testing
+        'junit'             : deps.junit,
+        'kotlinJunit'       : deps.kotlinJunit,
+        'mockito'           : [
+            'core'   : deps.mockito.core,
+            'kotlin' : deps.mockito.kotlin,
+            'android': deps.mockito.android
+        ],
+        'androidTestSupport': [
+            'runner': deps.androidTestSupport.runner,
+            'rules' : deps.androidTestSupport.rules
+        ],
+        'espresso'          : [
+            'core'   : deps.espresso.core,
+            'intents': deps.espresso.intents,
+            'contrib': deps.espresso.contrib
+        ]
     ],
 
     'remote'      : [
@@ -205,7 +297,10 @@ ext.moduleDeps = [
             'inject'    : deps.javax.inject
         ],
         'rxKotlin'          : deps.rxKotlin,
-        'moshi'             : deps.moshi,
+        'moshi'             : [
+            'core'  : deps.moshi.core,
+            'kotlin': deps.moshi.kotlin
+        ],
         'okhttp'            : [
             'core'   : deps.okhttp.core,
             'logging': deps.okhttp.logging
@@ -220,7 +315,7 @@ ext.moduleDeps = [
         // testing
         'junit'             : deps.junit,
         'kotlinJunit'       : deps.kotlinJunit,
-        'mockitoKotlin'     : deps.mockitoKotlin,
+        'mockito'           : deps.mockito.kotlin,
         'androidTestSupport': [
             'runner': deps.androidTestSupport.runner,
             'rules' : deps.androidTestSupport.rules
@@ -245,7 +340,7 @@ ext.moduleDeps = [
         // testing
         'junit'            : deps.junit,
         'kotlinJunit'      : deps.kotlinJunit,
-        'mockitoKotlin'    : deps.mockitoKotlin,
+        'mockito'          : deps.mockito.kotlin,
         'robolectric'      : deps.robolectric,
         'archTesting'      : deps.archTesting.core
     ]

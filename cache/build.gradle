@@ -31,14 +31,15 @@ dependencies {
   implementation cacheDeps.kotlin
   implementation cacheDeps.javax.inject
   implementation cacheDeps.rxKotlin
-  implementation cacheDeps.moshi
+  implementation cacheDeps.moshi.core
+  implementation cacheDeps.moshi.kotlin
   implementation cacheDeps.room.core
   implementation cacheDeps.room.rxJava
   kapt cacheDeps.room.compiler
 
   testImplementation cacheDeps.junit
   testImplementation cacheDeps.kotlinJunit
-  testImplementation cacheDeps.mockitoKotlin
+  testImplementation cacheDeps.mockito
   testImplementation cacheDeps.androidTestSupport.runner
   testImplementation cacheDeps.androidTestSupport.rules
   testImplementation cacheDeps.archTesting.core
